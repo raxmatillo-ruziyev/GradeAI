@@ -1,49 +1,135 @@
- body {
-            font-family: system-ui, Arial;
-            margin: 0;
-            background: #0b1020;
-            color: #e9eefc
-        }
+:root{
+  --bg: #0b1020;
+  --card: #111a33;
+  --card2: #0c132a;
+  --border: #22305a;
+  --border2: #2c3b6b;
+  --text: #e9eefc;
+  --muted: #a8b3d6;
+  --muted2:#d7def7;
+  --primary:#2b5cff;
+}
 
-        .wrap {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px
-        }
+*{ box-sizing: border-box; }
 
-        .card {
-            background: #111a33;
-            border: 1px solid #22305a;
-            border-radius: 14px;
-            padding: 18px;
-            margin: 14px 0
-        }
+body{
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
 
-        h1,
-        h2 {
-            margin: 0 0 10px
-        }
+.wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
 
-        p {
-            line-height: 1.6;
-            color: #d7def7;
-            margin: 10px 0
-        }
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  margin: 14px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
 
-        ul {
-            line-height: 1.6;
-            color: #d7def7
-        }
+/* Typography */
+h1{ margin: 0; font-size: 28px; letter-spacing: .2px; }
+h2{ margin: 0 0 10px; font-size: 18px; }
+p{
+  margin: 10px 0;
+  line-height: 1.7;
+  color: var(--muted2);
+}
+ul{
+  margin: 10px 0 0 18px;
+  line-height: 1.7;
+  color: var(--muted2);
+}
+.muted{ color: var(--muted); }
 
-        .muted {
-            color: #a8b3d6
-        }
+/* Header row (sen inline style ishlatgan div) */
+.wrap > div[style*="display: flex"]{
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
-        .tag {
-            display: inline-block;
-            padding: 6px 10px;
-            border: 1px solid #22305a;
-            border-radius: 999px;
-            margin: 4px 6px 0 0;
-            color: #a8b3d6
-        }
+/* Links */
+a{
+  color: var(--text);
+  text-decoration: none;
+}
+a:hover{ text-decoration: underline; }
+
+/* “Datasetga o‘tish ->” link block */
+.wrap > div[style*="display: flex"] a{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+}
+.wrap > div[style*="display: flex"] a:hover{
+  border-color: var(--border2);
+  background: rgba(255,255,255,0.06);
+  text-decoration: none;
+}
+
+/* Link ichidagi h1 ni kichraytirib, button ko‘rinishiga moslaymiz */
+.wrap > div[style*="display: flex"] a h1{
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0;
+  color: var(--muted2);
+}
+
+/* Tags (fanlar) */
+.tag{
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255,255,255,0.03);
+  font-size: 13px;
+  margin: 8px 8px 0 0;
+}
+
+/* Inline code */
+code{
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px 8px;
+  color: var(--muted2);
+}
+
+/* Buttons (keyingi sahifalarda kerak bo‘ladi) */
+button{
+  background: var(--primary);
+  border: 0;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 650;
+  transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
+  box-shadow: 0 10px 18px rgba(43,92,255,.22);
+}
+button:hover{
+  filter: brightness(1.06);
+  box-shadow: 0 14px 22px rgba(43,92,255,.26);
+}
+button:active{ transform: translateY(1px); }
+
+/* Mobile */
+@media (max-width: 720px){
+  .wrap{ padding: 16px; }
+  h1{ font-size: 22px; }
+  .card{ padding: 14px; border-radius: 14px; }
+}
