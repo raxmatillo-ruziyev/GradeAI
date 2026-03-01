@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GradeAI — Tahlil</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+
+<body>
+    <div class="wrap">
+
+        <!-- NAVBAR -->
+        <header class="nav">
+            <div class="brand">
+                <div class="brand-title">GradeAI</div>
+                <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
+            </div>
+
+            <nav class="nav-links">
+                <a class="navlink" href="/index.html">1-Deadline</a>
+                <a class="navlink" href="/dataset.html">Dataset</a>
+                <a class="navlink" href="/model.html">Model (AI)</a>
+                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+            </nav>
+        </header>
+
+        <p class="muted" style="margin-top:12px;">
+            Bu sahifada dataset bo‘yicha <b>statistika</b>, <b>correlation</b> va <b>vizual tahlil</b> ko‘rsatiladi.
+            (Ma’lumotlar localStorage’dan olinadi.)
+        </p>
+
+        <!-- MODEL METRICS (agar mavjud bo'lsa) -->
+        <section class="card">
+            <h2>Model natijalari (agar train qilingan bo‘lsa)</h2>
+            <div class="row">
+                <span class="badge" id="mseBadge">MSE: -</span>
+                <span class="badge" id="maeBadge">MAE: -</span>
+                <span class="badge" id="r2Badge">R²: -</span>
+            </div>
+            <p class="muted small" id="modelNote">Eslatma: model.html sahifada “Train Model” bosilsa, natijalar bu yerda
+                ham ko‘rinadi.</p>
+        </section>
+
+        <!-- BASIC STATS -->
+        <section class="card">
+            <h2>Deskriptiv statistika</h2>
+            <p class="muted small">Har bir ustun bo‘yicha: min / max / o‘rtacha (mean)</p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ustun</th>
+                            <th>Min</th>
+                            <th>Max</th>
+                            <th>Mean</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CORRELATION -->
+        <section class="card">
+            <h2>Correlation (final_score bilan)</h2>
+            <p class="muted small">
+                Correlation 1 ga yaqin bo‘lsa — kuchli ijobiy bog‘liqlik, 0 ga yaqin — zaif bog‘liqlik.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Corr(feature, final_score)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corrBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CHARTS -->
+        <section class="card">
+            <h2>Vizual tahlil</h2>
+            <p class="muted small">
+                1) final_score histogram<br />
+                2) Scatter: tanlangan fan vs final_score
+            </p>
+
+            <div class="row" style="justify-content:space-between; margin-top:10px;">
+                <label class="pill">
+                    Scatter uchun fan:
+                    <select id="featureSelect"
+                        style="margin-left:8px; padding:6px 8px; border-radius:10px; border:1px solid var(--border); background:rgba(255,255,255,0.04); color:var(--muted2);">
+                        <option value="ai">Sun’iy intellekt asoslari</option>
+                        <option value="dt">Differensial tenglama</option>
+                        <option value="kb">Kiberxavfsizligi asoslari</option>
+                        <option value="ki">Kompyuter injeneringgiga kirish</option>
+                        <option value="es">Ehtimollar va statistika</option>
+                    </select>
+                </label>
+
+                <button class="btn secondary" id="redrawBtn">Grafiklarni yangilash</button>
+            </div>
+
+            <div class="row" style="gap:14px; margin-top:12px; align-items:flex-start;">
+                <div class="card" style="margin:0; flex:1; min-width:280px;">
+                    <h3 style="margin:0 0 8px;">Histogram (final_score)</h3>
+                    <canvas id="histCanvas" width="520" height="260"
+                        style="width:100%; height:auto; border:1px solid var(--border); border-radius:12px; background:var(--card2);"></canvas>
+                </div>
+
+                <div class="card" style="margin:0; flex:1; min-width:280px;">
+                    <h3 style="margin:0 0 8px;">Scatter (feature vs final_score)</h3>
+                    <canvas id="scatterCanvas" width="520" height="260"
+                        style="width:100%; height:auto; border:1px solid var(--border); border-radius:12px; background:var(--card2);"></canvas>
+                </div>
+            </div>
+
+            <p class="muted small" id="dataNote" style="margin-top:10px;"></p>
+        </section>
+
+    </div>
+
+    <script src="/analysis.js"></script>
+</body>
+
+</html>

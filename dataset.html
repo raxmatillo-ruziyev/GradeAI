@@ -4,366 +4,85 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset — GradeAI</title>
-    <style>
-        :root {
-            --bg: #0b1020;
-            --card: #111a33;
-            --card2: #0c132a;
-            --border: #22305a;
-            --border2: #2c3b6b;
-            --text: #e9eefc;
-            --muted: #a8b3d6;
-            --muted2: #d7def7;
-            --primary: #2b5cff;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 24px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 18px;
-            margin: 14px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
-        }
-
-        /* Typography */
-        h1 {
-            margin: 0;
-            font-size: 28px;
-            letter-spacing: .2px;
-        }
-
-        h2 {
-            margin: 0 0 10px;
-            font-size: 18px;
-        }
-
-        p {
-            margin: 10px 0;
-            line-height: 1.7;
-            color: var(--muted2);
-        }
-
-        .small {
-            font-size: 13px;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        /* Header row (sen yozgan div) */
-        .wrap>div[style*="display: flex"] {
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* Link to home */
-        a {
-            color: var(--text);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .wrap>div[style*="display: flex"] a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .wrap>div[style*="display: flex"] a:hover {
-            border-color: var(--border2);
-            background: rgba(255, 255, 255, 0.06);
-            text-decoration: none;
-        }
-
-        .wrap>div[style*="display: flex"] a h1 {
-            font-size: 14px;
-            /* h1 ichida turgani uchun kichraytiramiz */
-            font-weight: 600;
-            margin: 0;
-            color: var(--muted2);
-        }
-
-        /* Badges / row */
-        .row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 10px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            color: var(--muted);
-            background: rgba(255, 255, 255, 0.03);
-            font-size: 13px;
-        }
-
-        /* Code inline */
-        code {
-            background: var(--card2);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 2px 8px;
-            color: var(--muted2);
-        }
-
-        /* Button */
-        button {
-            background: var(--primary);
-            border: 0;
-            color: #fff;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 650;
-            transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
-            box-shadow: 0 10px 18px rgba(43, 92, 255, .22);
-        }
-
-        button:hover {
-            filter: brightness(1.06);
-            box-shadow: 0 14px 22px rgba(43, 92, 255, .26);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        /* Table */
-        .table-wrap {
-            overflow: auto;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            background: var(--card2);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 980px;
-            background: transparent;
-        }
-
-        th,
-        td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border);
-            text-align: center;
-            vertical-align: middle;
-            font-size: 14px;
-        }
-
-        th {
-            position: sticky;
-            top: 0;
-            background: #0f1832;
-            color: #cfe0ff;
-            font-size: 13px;
-            z-index: 1;
-        }
-
-        tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        /* Mobile tweaks */
-        @media (max-width: 720px) {
-            .wrap {
-                padding: 16px;
-            }
-
-            h1 {
-                font-size: 22px;
-            }
-
-            .card {
-                padding: 14px;
-                border-radius: 14px;
-            }
-        }
-    </style>
+    <title>GradeAI — Dataset</title>
+    <link rel="stylesheet" href="/main.css">
 </head>
 
 <body>
     <div class="wrap">
-        <div style="display: flex; justify-content: space-between;">
-            <h1>GradeAI — Dataset</h1> <a href="/index.html">
-                <h1> Bosh sahifaga o'tish -></h1>
-            </a>
-        </div>
-        <p class="muted">Dataset manbasi: sun’iy yaratilgan (20 ta element) — Regression uchun</p>
 
-        <div class="card">
-            <h2>1) Dataset manbasi</h2>
-            <p>
-                Ushbu loyiha uchun dataset <b>sun’iy yaratilgan</b> bo‘lib, guruhdagi talabalar baholariga o‘xshash
-                qiymatlar asosida tuzildi.
-                Maqsad — 5 ta fan bo‘yicha baholar orqali <b>yakuniy bahoni (final_score)</b> bashorat qilish.
-            </p>
+        <!-- NAVBAR -->
+          <header class="nav">
+            <div class="brand">
+                <div class="brand-title">GradeAI</div>
+                <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
+            </div>
+
+            <nav class="nav-links">
+                <a class="navlink" href="/index.html">1-Deadline</a>
+                <a class="navlink" href="/dataset.html">Dataset</a>
+                <a class="navlink" href="/model.html">Model (AI)</a>
+                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+            </nav>
+        </header>
+
+        <p class="muted" style="margin-top:12px;">
+            Dataset manbasi: <b>sun’iy yaratilgan</b>. Jadval 20 tadan ko‘rsatiladi (pagination).
+        </p>
+
+        <section class="card">
+            <h2>Dataset haqida</h2>
             <div class="row">
                 <span class="badge">Format: CSV</span>
-                <span class="badge">Hajm: 20 qator</span>
+                <span class="badge">Hajm: 100 qator</span>
                 <span class="badge">Feature: 5 ta fan</span>
                 <span class="badge">Target: final_score</span>
             </div>
-        </div>
-
-        <div class="card">
-            <h2>2) Ustunlar (Columns)</h2>
-            <p class="small muted">Quyidagi 5 ta fan baholari “kiruvchi xususiyatlar (features)”, yakuniy baho esa
-                “chiqish (target)” hisoblanadi.</p>
-            <ul style="line-height:1.7;color:#d7def7;margin:8px 0 0 18px">
-                <li><b>suniy_intelekt_asoslari</b> — Sun’iy intellekt asoslari fanidan ball (0–100)</li>
-                <li><b>differensial_tenglama</b> — Differensial tenglama fanidan ball (0–100)</li>
-                <li><b>kiberxavfsizlik_asoslari</b> — Kiberxavfsizligi asoslari fanidan ball (0–100)</li>
-                <li><b>kompyuter_injenering_kirish</b> — Kompyuter injeneringgiga kirish fanidan ball (0–100)</li>
-                <li><b>ehtimollar_statistika</b> — Ehtimollar va statistika fanidan ball (0–100)</li>
-                <li><b>final_score</b> — Yakuniy baho (bashorat qilinadigan qiymat, 0–100)</li>
-            </ul>
-            <p class="muted small">
-                Izoh: CSV ustun nomlari kompyuter uchun qulay bo‘lishi maqsadida <code>_</code> bilan yozildi, lekin
-                jadvalda fan nomlari to‘liq ko‘rsatiladi.
+            <p class="small muted">
+                CSV ustunlar:
+                <code>ai_asoslari,differensial_tenglama,kiberxavfsizlik_asoslari,kompyuter_injenering_kirish,ehtimollar_statistika,final_score</code>
             </p>
-        </div>
+        </section>
 
-        <div class="card">
-            <div class="row" style="justify-content:space-between">
-                <h2 style="margin:0">3) Dataset jadvali (20 ta)</h2>
+        <section class="card">
+            <div class="row" style="justify-content:space-between;">
+                <h2 style="margin:0;">Dataset jadvali</h2>
                 <button id="downloadBtn">CSV yuklab olish</button>
             </div>
-            <p class="muted">Jadvaldagi ballar 0–100 oralig‘ida. final_score — taxminiy yakuniy baho.</p>
 
-            <div class="table-wrap">
-                <table id="dataTable">
+            <div class="table-wrap" style="margin-top:10px;">
+                <table>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>student_id</th>
                             <th>Sun’iy intellekt asoslari</th>
                             <th>Differensial tenglama</th>
                             <th>Kiberxavfsizligi asoslari</th>
                             <th>Kompyuter injeneringgiga kirish</th>
                             <th>Ehtimollar va statistika</th>
-                            <th>Yakuniy baho (final_score)</th>
+                            <th>final_score</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- JS bilan to'ldiriladi -->
+                    <tbody id="tbody">
+                        <!-- JS -->
                     </tbody>
                 </table>
             </div>
 
-            <p class="muted" style="margin-top:10px">
-                CSV fayl nomi : <code>gradeai_dataset.csv</code>
+            <div class="pagination">
+                <button class="btn secondary" id="prevBtn">← Oldingi</button>
+                <div class="page-info" id="pageInfo">1 / 5</div>
+                <button class="btn secondary" id="nextBtn">Keyingi →</button>
+            </div>
+
+            <p class="muted small" style="margin-top:10px;">
+                Ko‘rsatish: <code>20 ta</code> / sahifa. Jami: <code>100 ta</code>.
             </p>
-        </div>
+        </section>
+
     </div>
 
-    <script>
-        // 20 ta element: 5 ta fan + final_score (sun'iy)
-        // Xohlasang keyin real guruhingiz ballari bilan shu massivni yangilab qo'yasan.
-        const data = [
-            { ai: 78, dt: 80, kb: 75, ki: 90, es: 85, final: 82 },
-            { ai: 65, dt: 70, kb: 60, ki: 80, es: 70, final: 68 },
-            { ai: 90, dt: 85, kb: 88, ki: 95, es: 92, final: 90 },
-            { ai: 55, dt: 60, kb: 58, ki: 70, es: 65, final: 60 },
-            { ai: 88, dt: 82, kb: 84, ki: 93, es: 90, final: 87 },
-            { ai: 72, dt: 75, kb: 70, ki: 85, es: 78, final: 74 },
-            { ai: 60, dt: 65, kb: 62, ki: 75, es: 68, final: 64 },
-            { ai: 95, dt: 90, kb: 92, ki: 98, es: 95, final: 94 },
-            { ai: 68, dt: 72, kb: 66, ki: 82, es: 73, final: 70 },
-            { ai: 80, dt: 78, kb: 76, ki: 88, es: 80, final: 79 },
-            { ai: 50, dt: 55, kb: 52, ki: 65, es: 60, final: 54 },
-            { ai: 85, dt: 88, kb: 83, ki: 92, es: 89, final: 86 },
-            { ai: 77, dt: 74, kb: 72, ki: 86, es: 75, final: 76 },
-            { ai: 92, dt: 94, kb: 90, ki: 97, es: 93, final: 93 },
-            { ai: 58, dt: 62, kb: 57, ki: 72, es: 64, final: 61 },
-            { ai: 73, dt: 70, kb: 69, ki: 84, es: 77, final: 72 },
-            { ai: 66, dt: 68, kb: 63, ki: 79, es: 71, final: 67 },
-            { ai: 89, dt: 87, kb: 85, ki: 94, es: 91, final: 88 },
-            { ai: 71, dt: 73, kb: 68, ki: 83, es: 76, final: 73 },
-            { ai: 83, dt: 81, kb: 79, ki: 89, es: 84, final: 82 },
-        ];
-
-        // Jadvalni to'ldirish
-        const tbody = document.querySelector("#dataTable tbody");
-        tbody.innerHTML = data.map((r, i) => `
-      <tr>
-        <td>${i + 1}</td>
-        <td>${r.ai}</td>
-        <td>${r.dt}</td>
-        <td>${r.kb}</td>
-        <td>${r.ki}</td>
-        <td>${r.es}</td>
-        <td><b>${r.final}</b></td>
-      </tr>
-    `).join("");
-
-        // CSV yaratish
-        function toCSV(rows) {
-            const header = [
-                "suniy_intelekt_asoslari",
-                "differensial_tenglama",
-                "kiberxavfsizlik_asoslari",
-                "kompyuter_injenering_kirish",
-                "ehtimollar_statistika",
-                "final_score"
-            ].join(",");
-
-            const body = rows.map(r => [
-                r.ai, r.dt, r.kb, r.ki, r.es, r.final
-            ].join(",")).join("\n");
-
-            return header + "\n" + body;
-        }
-
-        // CSV yuklab olish
-        document.getElementById("downloadBtn").addEventListener("click", () => {
-            const csv = toCSV(data);
-            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "gradeai_dataset.csv";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            URL.revokeObjectURL(url);
-        });
-    </script>
+    <script src="/dataset.js"></script>
 </body>
 
 </html>

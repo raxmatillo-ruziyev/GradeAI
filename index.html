@@ -4,89 +4,122 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vazifa 1 — Muammo tahlili</title>
+    <title>GradeAI — 1-Deadline</title>
     <link rel="stylesheet" href="/main.css">
-    <style>
-       
-    </style>
 </head>
 
 <body>
     <div class="wrap">
-    
-        <div style="display: flex; justify-content: space-between;">
-            <h1>Mini-loyiha (Sun’iy intellekt asoslari)</h1> <a href="/dataset.html"><h1> Datasetga o'tish -></h1></a>
-</div>
-        <p class="muted">Vazifa 1 — Muammo tahlili va model zarurligi</p>
 
-        <div class="card">
-            <h2>1) Mavzu</h2>
-            <p><b>Talabalar bahosini bashoratlash (Regression)</b> — fanlar bo‘yicha olingan baholarga qarab talabaning
-                yakuniy bahosini prognoz qilish.</p>
-
-            <div class="muted">Loyihada foydalaniladigan fanlar:</div>
-            <div>
-                <span class="tag">Sun’iy intellekt asoslari</span>
-                <span class="tag">Differensial tenglama</span>
-                <span class="tag">Kiberxavfsizligi asoslari</span>
-                <span class="tag">Kompyuter injeneringiga kirish</span>
-                <span class="tag">Ehtimollar va statistika</span>
+        <!-- NAVBAR -->
+        <header class="nav">
+            <div class="brand">
+                <div class="brand-title">GradeAI</div>
+                <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
             </div>
-        </div>
 
-        <div class="card">
-            <h2>2) Muammo qo‘yilishi</h2>
-            <p>
-                Universitetda talabaning yakuniy natijasi bir nechta fanlardan olgan baholariga bog‘liq. Amaliyotda esa
-                ko‘pincha talabaning
-                semestr oxiridagi yakuniy bahosi faqat oxirgi haftalarda ma’lum bo‘ladi. Bu esa oldindan nazorat qilish,
-                past natijaga yaqin
-                talabalarni erta aniqlash va ularga yordam ko‘rsatishni qiyinlashtiradi.
-            </p>
-            <p>
-                Ushbu mini-loyihada maqsad — 5 ta fan bo‘yicha mavjud baholar asosida talabaning yakuniy bahosini
-                <b>regression modeli</b> yordamida
-                oldindan bashorat qilish. Regression yondashuvi tanlandi, chunki prognoz qilinadigan natija sonli qiymat
-                (yakuniy baho) hisoblanadi.
-            </p>
-        </div>
+            <nav class="nav-links">
+                <a class="navlink" href="/index.html">1-Deadline</a>
+                <a class="navlink" href="/dataset.html">Dataset</a>
+                <a class="navlink" href="/model.html">Model (AI)</a>
+                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+            </nav>
+        </header>
 
-        <div class="card">
-            <h2>3) Model nima uchun kerak?</h2>
-            <p>
-                Modelning asosiy vazifasi — baholar orasidagi bog‘liqlikni (qaysi fan ko‘proq ta’sir qilishini)
-                ma’lumotlardan o‘rganib,
-                yangi talaba ma’lumotlari kiritilganda yakuniy natijani taxmin qilishdir.
-            </p>
-            <ul>
-                <li><b>Erta ogohlantirish:</b> yakuniy bahosi past chiqishi mumkin bo‘lgan talabani oldindan ko‘rish.
-                </li>
-                <li><b>Monitoring:</b> semestr davomida baholar dinamikasini tahlil qilish va nazoratni kuchaytirish.
-                </li>
-                <li><b>Resurslarni to‘g‘ri taqsimlash:</b> qaysi fanlar bo‘yicha qo‘shimcha dars yoki konsultatsiya
-                    kerakligini aniqlash.</li>
-                <li><b>Statistik asos:</b> ehtimollar va statistika nuqtai nazaridan ma’lumotlarga tayangan holda xulosa
-                    qilish.</li>
+        <p class="muted" style="margin-top:12px;">
+            Mavzu: <b>Talabalar yakuniy bahosini bashoratlash (Regression)</b> — muammo tahlili va model zarurligi
+        </p>
+
+        <section class="card">
+            <h2>Guruh a’zolari</h2>
+            <ul class="list">
+                <li>Ruziyev Raxmatillo</li>
+                <li>Azimjonov Shaxzod</li>
+                <li>Abdunosirov Asrorbek</li>
+                <li>Ziyoratquliyev Abbosbek</li>
             </ul>
-            <p>
-                Natijada, model ta’lim jarayonida qaror qabul qilishni yengillashtiradi: masalan, “qaysi talabalar xavf
-                guruhida” yoki
-                “qaysi fan yakuniy bahoga kuchliroq ta’sir qiladi” kabi savollarga aniqroq javob beradi.
-            </p>
-        </div>
 
-        <div class="card">
-            <h2>4) Dasturiy muhit</h2>
-            <p>
-                Loyiha <b>HTML + CSS + JavaScript</b> asosida web-sayt ko‘rinishida tayyorlanadi. Barcha jarayonlar
-                saytda ko‘rsatiladi:
-                (1) muammo tahlili, (2) dataset sahifasi, (3) ma’lumotlarni tayyorlash va tahlil, (4) model qurish va
-                baholash, (5) xulosa va demo.
-            </p>
-        </div>
+            <div class="row" style="margin-top:10px;">
+                <span class="pill">Format: Web (HTML+CSS+JS)</span>
+                <span class="pill">Masala turi: Regression</span>
+                <span class="pill">Dataset: 100 ta ma’lumot</span>
+            </div>
+        </section>
 
-        <p class="muted">Keyingi qadam: Dataset sahifasi (20 ta element, sun’iy yaratilgan dataset) va CSV ko‘rinishida
-            berish. <a href="/dataset.html">→</a></p>
+        <section class="card">
+            <h2>1) Muammo qo‘yilishi</h2>
+            <p>
+                Zamonaviy ta’lim tizimida talabalar bilimini baholash muhim jarayon hisoblanadi. Talabalar semestr
+                davomida turli fanlar bo‘yicha baholanadi,
+                ammo yakuniy baho ko‘pincha semestr oxirida aniq bo‘ladi. Bu esa <b>erta nazorat</b> qilish, <b>yordamga
+                    muhtoj talabalarni</b> vaqtida aniqlash
+                va o‘qitish strategiyasini optimallashtirishni qiyinlashtiradi.
+            </p>
+
+            <h3>Muammo qo‘yilishining nazariy asoslari</h3>
+            <ul class="list">
+                <li><b>Bahoni oldindan bilish</b> — darsni optimallashtirish va past natijali talabalarni erta
+                    aniqlashga yordam beradi.</li>
+                <li><b>Regression modeli</b> — natija sonli qiymat (0–100) bo‘lgani uchun eng mos yondashuv.</li>
+                <li><b>Features tanlash</b> — kiruvchi fan baholarining yakuniy bahoga ta’sirini tahlil qilish imkonini
+                    beradi.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>2) Loyihaning dolzarbligi</h2>
+            <ul class="list">
+                <li><b>Ta’lim sifatini oshirish:</b> model past bahoni bashorat qilsa, o‘qituvchi vaqtida choralar
+                    ko‘rishi mumkin.</li>
+                <li><b>Personalizatsiya:</b> har bir talaba uchun individual yondashuv va rivojlanish rejasini
+                    shakllantirish.</li>
+                <li><b>Resurslarni samarali boshqarish:</b> kimga mentor/repetitor kerakligini oldindan bilish.</li>
+                <li><b>Analitik foyda:</b> qaysi fan yakuniy bahoga ko‘proq ta’sir qilishini aniqlash (feature
+                    influence).</li>
+                <li><b>AI bilan integratsiya:</b> ta’limda Data Science va AI qo‘llaniladigan real amaliy vazifa.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>3) Loyihaning maqsadi va vazifalari</h2>
+            <p><b>Asosiy maqsad:</b> 5 ta fan bo‘yicha baholarga asoslanib, yakuniy bahoni bashorat qiluvchi regression
+                model (AI) yaratish.</p>
+
+            <h3>Vazifalar</h3>
+            <ul class="list">
+                <li>Ma’lumotlarni yig‘ish (sun’iy dataset) va dastlabki tahlil qilish.</li>
+                <li>Data preprocessing: bo‘sh qiymatlar, xatoliklar, normallashtirish (keyingi deadline).</li>
+                <li>Regression model qurish (masalan, Linear Regression) va o‘qitish.</li>
+                <li>Baholash: MSE / MAE / R² kabi metrikalar orqali natijani tekshirish.</li>
+                <li>Vizualizatsiya: grafiklar (scatter, bar, trend) bilan tahlil.</li>
+                <li>Amaliy xulosa: real hayotda qo‘llash va yaxshilash yo‘llari.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>4) Masalaning turi</h2>
+            <p>Ushbu masala <b>Regression</b> turiga kiradi, chunki bashorat qilinadigan natija — <b>yakuniy baho
+                    (0–100)</b>.</p>
+        </section>
+
+        <section class="card">
+            <h2>5) Dataset haqida ma’lumot</h2>
+            <p>
+                Dataset <b>sun’iy yaratilgan</b> bo‘lib, <b>100 ta yozuv</b>dan iborat. Har bir yozuvda 5 ta fan
+                bo‘yicha ballar va
+                <b>final_score</b> (yakuniy baho) mavjud.
+            </p>
+            <p class="muted">Dataset sahifasi: <a href="/dataset.html">dataset.html →</a></p>
+        </section>
+
+        <section class="card">
+            <h2>6) Kutilayotgan natija</h2>
+            <p>
+                Loyiha yakunida model fanlar bo‘yicha baholarga qarab yakuniy bahoni ma’lum aniqlikda bashorat qiladi.
+                Natijalar metrikalar va grafiklar orqali tahlil qilinadi.
+            </p>
+        </section>
+
     </div>
 </body>
 
