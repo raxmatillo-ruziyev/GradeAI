@@ -1,0 +1,49 @@
+ body {
+            font-family: system-ui, Arial;
+            margin: 0;
+            background: #0b1020;
+            color: #e9eefc
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px
+        }
+
+        .card {
+            background: #111a33;
+            border: 1px solid #22305a;
+            border-radius: 14px;
+            padding: 18px;
+            margin: 14px 0
+        }
+
+        h1,
+        h2 {
+            margin: 0 0 10px
+        }
+
+        p {
+            line-height: 1.6;
+            color: #d7def7;
+            margin: 10px 0
+        }
+
+        ul {
+            line-height: 1.6;
+            color: #d7def7
+        }
+
+        .muted {
+            color: #a8b3d6
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border: 1px solid #22305a;
+            border-radius: 999px;
+            margin: 4px 6px 0 0;
+            color: #a8b3d6
+        }
