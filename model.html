@@ -2,106 +2,269 @@
 <html lang="uz">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GradeAI — Model (Random Forest)</title>
-    <link rel="stylesheet" href="/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GradeAI — Model (Random Forest)</title>
+  <link rel="stylesheet" href="/main.css" />
 </head>
 
 <body>
-    <div class="wrap">
+  <a class="skip-link" href="#content">Kontentga o‘tish</a>
 
-        <!-- NAVBAR (umumiy) -->
-         <header class="nav">
-            <div class="brand">
-                <div class="brand-title">GradeAI</div>
-                <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="wrap">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <span class="logo-dot"></span>
+          <span class="logo-dot"></span>
+          <span class="logo-dot"></span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">GradeAI</div>
+          <div class="brand-sub">Model — Random Forest (Regression)</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Asosiy navigatsiya">
+        <a class="navlink" href="/index.html">Konsepsiya</a>
+        <a class="navlink" href="/dataset.html">Dataset</a>
+        <a class="navlink is-active" href="/model.html">Model (AI)</a>
+        <a class="navlink" href="/analysis.html">Tahlil</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Rejimni almashtirish">
+          <span class="icon-sun" aria-hidden="true">☀</span>
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+        </button>
+
+        <button class="burger" id="burger" type="button" aria-label="Menyuni ochish">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile nav -->
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a class="navlink" href="/index.html">Konsepsiya</a>
+      <a class="navlink" href="/dataset.html">Dataset</a>
+      <a class="navlink is-active" href="/model.html">Model (AI)</a>
+      <a class="navlink" href="/analysis.html">Tahlil</a>
+    </div>
+
+    <main id="content" class="content">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-left">
+          <p class="kicker">AI / Regression Model</p>
+          <h1 class="hero-title">
+            Random Forest Regressor
+            <span class="badge">No library</span>
+          </h1>
+          <p class="hero-desc">
+            Bu sahifada dataset asosida <b>final_score (0–100)</b> ni bashorat qiluvchi Random Forest modeli o‘qitiladi.
+            Model bir nechta <b>decision tree</b> lar ansamblidan iborat bo‘lib, prognoz ularning o‘rtacha qiymati bilan olinadi.
+          </p>
+
+          <div class="hero-meta">
+            <div class="meta-chip">
+              <div class="meta-title">Kirish (features)</div>
+              <div class="meta-value">5 ta fan ballari</div>
+            </div>
+            <div class="meta-chip">
+              <div class="meta-title">Chiqish (target)</div>
+              <div class="meta-value">final_score</div>
+            </div>
+            <div class="meta-chip">
+              <div class="meta-title">Dataset</div>
+              <div class="meta-value" id="dsMeta">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="hero-card-head">
+              <h2 class="h2">Status</h2>
+              <span class="pill" id="statusPill">Tayyor</span>
             </div>
 
-            <nav class="nav-links">
-                <a class="navlink" href="/index.html">1-Deadline</a>
-                <a class="navlink" href="/dataset.html">Dataset</a>
-                <a class="navlink" href="/model.html">Model (AI)</a>
-                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
-            </nav>
-        </header>
-
-        <section class="card">
-            <h2>Model sozlamalari</h2>
-            <p class="muted small">
-                Random Forest — ko‘p sonli decision tree’lardan iborat ansambl. Har tree bootstrap sample’da o‘qiydi va
-                har split’da feature’larning bir qismi tasodifiy tanlanadi. Prognoz — tree’lar natijalarining
-                o‘rtachasi.
-            </p>
-
-            <div class="row" style="margin-top:10px;">
-                <label class="pill">Trees:
-                    <input id="nTrees" type="number" value="30" min="5" max="200" style="width:80px;margin-left:8px;">
-                </label>
-                <label class="pill">Max depth:
-                    <input id="maxDepth" type="number" value="6" min="2" max="20" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">Min samples:
-                    <input id="minSamples" type="number" value="4" min="2" max="50" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">Feature rate:
-                    <input id="featRate" type="number" value="0.7" step="0.1" min="0.2" max="1"
-                        style="width:70px;margin-left:8px;">
-                </label>
+            <div class="callout" style="margin-top:0;">
+              <div class="callout-title">Izoh</div>
+              <p class="muted" id="trainStatus" style="margin:0;">
+                Dataset localStorage’dan olinadi: <code>gradeai_dataset</code>.
+                Agar topilmasa, demo dataset ishlatiladi.
+              </p>
             </div>
 
-            <div class="row" style="margin-top:12px;justify-content:space-between;">
-                <button id="trainBtn">Train Model</button>
-                <div class="muted small" id="trainStatus">Dataset: localStorage’dan olinadi</div>
+            <div class="link-row" style="margin-top:12px;">
+              <button class="btn btn-ghost" id="loadFromLSBtn" type="button">LocalStorage’dan yuklash</button>
+              <button class="btn btn-ghost" id="useDemoBtn" type="button">Demo dataset</button>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <section class="card">
-            <h2>Baholash (Test natijalar)</h2>
-            <div class="row">
-                <span class="badge" id="mseBadge">MSE: -</span>
-                <span class="badge" id="maeBadge">MAE: -</span>
-                <span class="badge" id="r2Badge">R²: -</span>
+      <!-- GRID -->
+      <section class="grid">
+        <!-- Settings -->
+        <article class="card">
+          <div class="card-head">
+            <h2 class="h2">1) Model sozlamalari</h2>
+            <span class="tag">Settings</span>
+          </div>
+
+          <p class="muted">
+            Random Forest — bootstrap sample + tasodifiy feature tanlash bilan tree ansambli.
+            Bu overfittingni kamaytiradi va barqaror natija beradi.
+          </p>
+
+          <div class="form" style="margin-top:12px;">
+            <div class="form-grid">
+              <div class="field">
+                <div class="label">Trees (n_estimators)</div>
+                <input class="input" id="nTrees" type="number" value="40" min="5" max="200">
+              </div>
+              <div class="field">
+                <div class="label">Max depth</div>
+                <input class="input" id="maxDepth" type="number" value="7" min="2" max="25">
+              </div>
+              <div class="field">
+                <div class="label">Min samples per leaf</div>
+                <input class="input" id="minSamples" type="number" value="4" min="2" max="50">
+              </div>
+              <div class="field">
+                <div class="label">Feature rate (0–1)</div>
+                <input class="input" id="featRate" type="number" value="0.7" step="0.1" min="0.2" max="1">
+              </div>
+              <div class="field">
+                <div class="label">Test size</div>
+                <select class="select" id="testSize">
+                  <option value="0.2" selected>20%</option>
+                  <option value="0.25">25%</option>
+                  <option value="0.3">30%</option>
+                </select>
+              </div>
+              <div class="field">
+                <div class="label">Random seed</div>
+                <input class="input" id="seed" type="number" value="42" min="1" max="99999">
+              </div>
             </div>
-            <p class="muted small" id="splitInfo">Train/Test split: -</p>
-            <p class="muted small" id="weightsInfo">Feature importance: -</p>
-        </section>
 
-        <section class="card">
-            <h2>Prognoz qilish (Predict)</h2>
-            <p class="muted small">5 ta fan bahosini kiriting (0–100), model yakuniy bahoni taxmin qiladi.</p>
+            <div class="modal-actions" style="justify-content:flex-start;">
+              <button class="btn" id="trainBtn" type="button">Train Model</button>
+              <button class="btn btn-ghost" id="resetMetricsBtn" type="button">Reset metrics</button>
+            </div>
+          </div>
+        </article>
 
-            <div class="row" style="margin-top:10px;">
-                <label class="pill">AI:
-                    <input id="inAI" type="number" min="0" max="100" value="80" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">DT:
-                    <input id="inDT" type="number" min="0" max="100" value="75" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">KB:
-                    <input id="inKB" type="number" min="0" max="100" value="78" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">KI:
-                    <input id="inKI" type="number" min="0" max="100" value="85" style="width:70px;margin-left:8px;">
-                </label>
-                <label class="pill">ES:
-                    <input id="inES" type="number" min="0" max="100" value="70" style="width:70px;margin-left:8px;">
-                </label>
+        <!-- Metrics -->
+        <article class="card">
+          <div class="card-head">
+            <h2 class="h2">2) Baholash</h2>
+            <span class="tag">Metrics</span>
+          </div>
+
+          <div class="stat">
+            <div class="stat-item">
+              <div class="stat-top">MSE</div>
+              <div class="stat-big" id="mseBadge">-</div>
+              <div class="muted small">Katta bo‘lsa xato katta</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-top">MAE</div>
+              <div class="stat-big" id="maeBadge">-</div>
+              <div class="muted small">O‘rtacha absolut xato</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-top">R²</div>
+              <div class="stat-big" id="r2Badge">-</div>
+              <div class="muted small">1 ga yaqin bo‘lsa yaxshi</div>
+            </div>
+          </div>
+
+          <p class="muted small" id="splitInfo" style="margin-top:12px;">Train/Test: -</p>
+          <p class="muted small" id="weightsInfo">Feature importance: -</p>
+          <p class="muted small" id="trainedAt">Trained at: -</p>
+        </article>
+
+        <!-- Predict -->
+        <article class="card">
+          <div class="card-head">
+            <h2 class="h2">3) Prognoz (Predict)</h2>
+            <span class="tag">Predict</span>
+          </div>
+
+          <p class="muted">5 ta fan bahosini kiriting (0–100). Model yakuniy bahoni hisoblaydi.</p>
+
+          <div class="form" style="margin-top:12px;">
+            <div class="form-grid">
+              <div class="field">
+                <div class="label">AI asoslari</div>
+                <input class="input" id="inAI" type="number" min="0" max="100" value="80">
+              </div>
+              <div class="field">
+                <div class="label">Differensial tenglama</div>
+                <input class="input" id="inDT" type="number" min="0" max="100" value="75">
+              </div>
+              <div class="field">
+                <div class="label">Kiberxavfsizlik</div>
+                <input class="input" id="inKB" type="number" min="0" max="100" value="78">
+              </div>
+              <div class="field">
+                <div class="label">Kompyuter injenering</div>
+                <input class="input" id="inKI" type="number" min="0" max="100" value="85">
+              </div>
+              <div class="field">
+                <div class="label">Ehtimollar & statistika</div>
+                <input class="input" id="inES" type="number" min="0" max="100" value="70">
+              </div>
+              <div class="field">
+                <div class="label">Natija</div>
+                <div class="stat-item" style="height:40px;display:flex;align-items:center;">
+                  <div class="stat-big" id="predBadge" style="margin:0;">-</div>
+                </div>
+              </div>
             </div>
 
-            <div class="row" style="margin-top:12px;">
-                <button id="predictBtn" class="btn secondary">Predict</button>
-                <span class="badge" id="predBadge">Pred: -</span>
+            <div class="modal-actions" style="justify-content:flex-start;">
+              <button class="btn" id="predictBtn" type="button">Predict</button>
+              <button class="btn btn-ghost" id="fillExampleBtn" type="button">Example values</button>
             </div>
 
             <p class="muted small" style="margin-top:10px;">
-                Eslatma: Model ishlashi uchun avval <b>Train Model</b> bosiladi.
+              Eslatma: prognoz uchun avval <b>Train Model</b> bosilishi kerak.
             </p>
-        </section>
+          </div>
+        </article>
 
-    </div>
+        <!-- Explain -->
+        <article class="card">
+          <div class="card-head">
+            <h2 class="h2">4) Qisqa tushuntirish</h2>
+            <span class="tag">Explain</span>
+          </div>
 
-    <script src="/rf.js"></script>
+          <ul class="bullets">
+            <li><b>Bootstrap:</b> har bir tree datasetdan tasodifiy qayta tanlab o‘qitiladi.</li>
+            <li><b>Random features:</b> split vaqtida feature’larning bir qismi ko‘riladi (featRate).</li>
+            <li><b>Natija:</b> regressiyada barcha tree natijalarining o‘rtachasi olinadi.</li>
+            <li><b>Importance:</b> qaysi fan ko‘proq ishlatilganini ko‘rsatadi (taxminiy).</li>
+          </ul>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <div class="muted">© 2026 GradeAI — Model sahifasi</div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="/rf.js"></script>
 </body>
 
 </html>

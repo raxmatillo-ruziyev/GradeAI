@@ -5,83 +5,248 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GradeAI — Dataset</title>
-    <link rel="stylesheet" href="/main.css">
+
+    <!-- Prevent theme flash -->
+    <script>
+        (function () {
+            try {
+                const saved = localStorage.getItem("theme");
+                const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+                const theme = (saved === "light" || saved === "dark") ? saved : (prefersLight ? "light" : "dark");
+                document.documentElement.dataset.theme = theme;
+            } catch (e) { }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="/main.css" />
 </head>
 
 <body>
-    <div class="wrap">
+    <a class="skip-link" href="#content">Kontentga o‘tish</a>
 
-        <!-- NAVBAR -->
-          <header class="nav">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <div class="wrap">
+        <!-- TOPBAR -->
+        <header class="topbar">
             <div class="brand">
-                <div class="brand-title">GradeAI</div>
-                <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
+                <div class="logo">
+                    <span class="logo-dot"></span>
+                    <span class="logo-dot"></span>
+                    <span class="logo-dot"></span>
+                </div>
+                <div class="brand-text">
+                    <div class="brand-title">GradeAI</div>
+                    <div class="brand-sub">Dataset — jadval, CRUD, CSV</div>
+                </div>
             </div>
 
-            <nav class="nav-links">
-                <a class="navlink" href="/index.html">1-Deadline</a>
-                <a class="navlink" href="/dataset.html">Dataset</a>
+            <nav class="nav" aria-label="Asosiy navigatsiya">
+                <a class="navlink" href="/index.html">Konsepsiya</a>
+                <a class="navlink is-active" href="/dataset.html">Dataset</a>
                 <a class="navlink" href="/model.html">Model (AI)</a>
-                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+                <a class="navlink" href="/analysis.html">Tahlil</a>
             </nav>
+
+            <div class="topbar-actions">
+                <button class="icon-btn" id="themeToggle" type="button" aria-label="Rejimni almashtirish">
+                    <span class="icon-sun" aria-hidden="true">☀</span>
+                    <span class="icon-moon" aria-hidden="true">🌙</span>
+                </button>
+
+                <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </header>
 
-        <p class="muted" style="margin-top:12px;">
-            Dataset manbasi: <b>sun’iy yaratilgan</b>. Jadval 20 tadan ko‘rsatiladi (pagination).
-        </p>
+        <!-- Mobile nav -->
+        <div class="mobile-nav" id="mobileNav" hidden>
+            <a class="navlink" href="/index.html">Konsepsiya</a>
+            <a class="navlink is-active" href="/dataset.html">Dataset</a>
+            <a class="navlink" href="/model.html">Model (AI)</a>
+            <a class="navlink" href="/analysis.html">Tahlil</a>
+        </div>
 
-        <section class="card">
-            <h2>Dataset haqida</h2>
-            <div class="row">
-                <span class="badge">Format: CSV</span>
-                <span class="badge">Hajm: 100 qator</span>
-                <span class="badge">Feature: 5 ta fan</span>
-                <span class="badge">Target: final_score</span>
-            </div>
-            <p class="small muted">
-                CSV ustunlar:
-                <code>ai_asoslari,differensial_tenglama,kiberxavfsizlik_asoslari,kompyuter_injenering_kirish,ehtimollar_statistika,final_score</code>
-            </p>
-        </section>
+        <main id="content" class="content">
+            <!-- HERO -->
+            <section class="hero">
+                <div class="hero-left">
+                    <p class="kicker">Ma’lumotlar bazasi / Jadval</p>
+                    <h1 class="hero-title">
+                        Talabalar dataset’i
+                        <span class="badge">CRUD + Pagination</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Bu sahifada talaba ma’lumotlarini qo‘shish, tahrirlash, o‘chirish va CSV ko‘rinishida yuklab
+                        olish mumkin.
+                        Dataset siz qo‘shgancha <b>cheklanmaydi</b>.
+                    </p>
 
-        <section class="card">
-            <div class="row" style="justify-content:space-between;">
-                <h2 style="margin:0;">Dataset jadvali</h2>
-                <button id="downloadBtn">CSV yuklab olish</button>
-            </div>
+                    <div class="hero-meta">
+                        <div class="meta-chip">
+                            <div class="meta-title">Records</div>
+                            <div class="meta-value" id="statCount">0</div>
+                        </div>
+                        <div class="meta-chip">
+                            <div class="meta-title">Page size</div>
+                            <div class="meta-value" id="statPageSize">5</div>
+                        </div>
+                        <div class="meta-chip">
+                            <div class="meta-title">Target</div>
+                            <div class="meta-value">final_score</div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="table-wrap" style="margin-top:10px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>student_id</th>
-                            <th>Sun’iy intellekt asoslari</th>
-                            <th>Differensial tenglama</th>
-                            <th>Kiberxavfsizligi asoslari</th>
-                            <th>Kompyuter injeneringgiga kirish</th>
-                            <th>Ehtimollar va statistika</th>
-                            <th>final_score</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        <!-- JS -->
-                    </tbody>
-                </table>
-            </div>
+                <div class="hero-right">
+                    <div class="hero-card">
+                        <div class="hero-card-head">
+                            <h2 class="h2">Boshqaruv</h2>
+                            <span class="pill">Dataset Tools</span>
+                        </div>
 
-            <div class="pagination">
-                <button class="btn secondary" id="prevBtn">← Oldingi</button>
-                <div class="page-info" id="pageInfo">1 / 5</div>
-                <button class="btn secondary" id="nextBtn">Keyingi →</button>
-            </div>
+                        <div class="dataset-actions">
+                            <button class="btn" id="addBtn" type="button">+ Talaba qo‘shish</button>
+                            <button class="btn btn-ghost" id="downloadBtn" type="button">CSV yuklab olish</button>
 
-            <p class="muted small" style="margin-top:10px;">
-                Ko‘rsatish: <code>20 ta</code> / sahifa. Jami: <code>100 ta</code>.
-            </p>
-        </section>
+                            <!-- FIXED: reset no longer forces 20 -->
+                            <div class="action-row">
+                                <button class="btn btn-ghost" id="resetUiBtn" type="button">Reset UI</button>
+                                <button class="btn btn-ghost" id="seedBtn" type="button">Demo (20)</button>
+                                <button class="btn btn-ghost danger" id="clearBtn" type="button">Clear (0)</button>
+                            </div>
+                        </div>
 
+                        <p class="muted small" style="margin-top:10px;">
+                            Saqlash: <code>localStorage</code> (gradeai_dataset_v1)
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TABLE CARD -->
+            <section class="card">
+                <div class="card-head">
+                    <h2 class="h2">Dataset jadvali</h2>
+                    <span class="tag" id="tableTag">0 records</span>
+                </div>
+
+                <div class="toolbar">
+                    <div class="search">
+                        <input id="searchInput" class="input" type="text" placeholder="Qidirish: F.I.Sh bo‘yicha..." />
+                    </div>
+
+                    <div class="toolbar-right">
+                        <label class="muted small" for="pageSizeSelect">Ko‘rsatish:</label>
+                        <select id="pageSizeSelect" class="select">
+                            <option value="5">5 / sahifa</option>
+                            <option value="10">10 / sahifa</option>
+                            <option value="20">20 / sahifa</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>F.I.Sh</th>
+                                <th>AI</th>
+                                <th>Diff</th>
+                                <th>Kiber</th>
+                                <th>Kompyuter</th>
+                                <th>Eht/Stat</th>
+                                <th>final</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+
+                <!-- FIXED: pagination one row -->
+                <div class="pagination">
+                    <button class="btn btn-ghost" id="prevBtn" type="button">← Oldingi</button>
+                    <div class="page-info" id="pageInfo">1 / 1</div>
+                    <button class="btn btn-ghost" id="nextBtn" type="button">Keyingi →</button>
+                </div>
+
+                <p class="muted small" style="margin-top:10px;">
+                    Fan ballari: 0–100. final_score avtomatik hisoblanadi.
+                </p>
+            </section>
+
+            <footer class="footer">
+                <div class="muted">© 2026 GradeAI — Dataset</div>
+            </footer>
+        </main>
     </div>
 
+    <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
+
+    <!-- MODAL -->
+    <div class="modal" id="modal" hidden>
+        <div class="modal-backdrop" data-close="1"></div>
+
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-head">
+                <div>
+                    <div class="h2" id="modalTitle">Talaba qo‘shish</div>
+                    <div class="muted small">F.I.Sh va fan ballarini kiriting</div>
+                </div>
+                <button class="icon-btn" id="closeModal" type="button" aria-label="Yopish">✕</button>
+            </div>
+
+            <form id="form" class="form">
+                <div class="form-grid">
+                    <div class="field">
+                        <label class="label">Familiya</label>
+                        <input class="input" id="lastName" type="text" required placeholder="Masalan: Ruziyev" />
+                    </div>
+                    <div class="field">
+                        <label class="label">Ism</label>
+                        <input class="input" id="firstName" type="text" required placeholder="Masalan: Raxmatillo" />
+                    </div>
+                    <div class="field">
+                        <label class="label">Sharif (Otasining ismi)</label>
+                        <input class="input" id="patronymic" type="text" placeholder="Masalan: Xolmat o‘g‘li" />
+                    </div>
+
+                    <div class="field">
+                        <label class="label">AI asoslari</label>
+                        <input class="input" id="ai" type="number" min="0" max="100" required />
+                    </div>
+                    <div class="field">
+                        <label class="label">Differensial</label>
+                        <input class="input" id="dt" type="number" min="0" max="100" required />
+                    </div>
+                    <div class="field">
+                        <label class="label">Kiberxavfsizlik</label>
+                        <input class="input" id="kb" type="number" min="0" max="100" required />
+                    </div>
+                    <div class="field">
+                        <label class="label">Kompyuter inj.</label>
+                        <input class="input" id="ki" type="number" min="0" max="100" required />
+                    </div>
+                    <div class="field">
+                        <label class="label">Ehtimol/Stat</label>
+                        <input class="input" id="es" type="number" min="0" max="100" required />
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-ghost" type="button" id="cancelBtn">Bekor</button>
+                    <button class="btn" type="submit" id="saveBtn">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/main.js"></script>
     <script src="/dataset.js"></script>
 </body>
 
