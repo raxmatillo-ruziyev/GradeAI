@@ -389,7 +389,7 @@
     const payload = {
       lastName, firstName, patronymic,
       ai, dt, kb, ki, es,
-      final_score: calcFinalScore(ai, dt, kb, ki, es)
+final_score: calcFinalScore(ai, dt, kb, ki, es)
     };
 
     if (editingId) updateRow(editingId, payload);

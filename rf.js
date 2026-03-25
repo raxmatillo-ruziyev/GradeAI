@@ -2,7 +2,7 @@
 // Dataset expected: [{ai,dt,kb,ki,es,final}, ...] from localStorage key: gradeai_dataset
 
 const FEATURE_KEYS = ["ai", "dt", "kb", "ki", "es"];
-const TARGET_KEY = "final";
+const TARGET_KEY = "final_score";
 
 // ---------- Small helpers ----------
 const $ = (id) => document.getElementById(id);
@@ -197,8 +197,13 @@ function normalizeDataset(arr) {
   return (arr || [])
     .filter(r => FEATURE_KEYS.every(k => typeof r[k] === "number") && typeof r[TARGET_KEY] === "number")
     .map(r => ({
-      ai: r.ai, dt: r.dt, kb: r.kb, ki: r.ki, es: r.es, final: r.final
-    }));
+  ai: r.ai,
+  dt: r.dt,
+  kb: r.kb,
+  ki: r.ki,
+  es: r.es,
+  final_score: r.final_score
+}));
 }
 
 function loadDatasetFromLS() {
@@ -226,7 +231,7 @@ function makeDemoDataset(n = 60, seed = 42) {
     const noise = (rand() - 0.5) * 8;
     const final = clamp(0.22 * ai + 0.20 * dt + 0.20 * kb + 0.20 * ki + 0.18 * es + noise);
 
-    rows.push({ ai, dt, kb, ki, es, final });
+   rows.push({ ai, dt, kb, ki, es, final_score: final });
   }
   return rows;
 }
@@ -352,7 +357,7 @@ async function train() {
   );
 
   // eval
-  const yTrue = testData.map(r => r.final);
+ const yTrue = testData.map(r => r.final_score);
   const yPred = testData.map(r => predictForest(model, r));
 
   const MSE = mse(yTrue, yPred);

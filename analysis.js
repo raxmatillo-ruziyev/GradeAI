@@ -13,7 +13,7 @@
     kb: "Kiberxavfsizlik asoslari",
     ki: "Kompyuter injeneringga kirish",
     es: "Ehtimollar va statistika",
-    final: "final_score"
+    final_score: "final_score"
   };
 
   const $ = (id) => document.getElementById(id);
@@ -33,9 +33,9 @@
         // {id,fio,ai,dt,kb,ki,es,final}
         const cleaned = arr
           .filter(r => r && typeof r === "object")
-          .filter(r => FEATURE_KEYS.every(k => typeof r[k] === "number") && typeof r.final === "number")
+          .filter(r => FEATURE_KEYS.every(k => typeof r[k] === "number") && typeof r.final_score === "number")
           .map(r => ({
-            ai: r.ai, dt: r.dt, kb: r.kb, ki: r.ki, es: r.es, final: r.final
+            ai: r.ai, dt: r.dt, kb: r.kb, ki: r.ki, es: r.es, final_score: r.final_score
           }));
 
         if (cleaned.length) return { key, data: cleaned };
@@ -159,7 +159,7 @@
 
   // ---------- Tables ----------
   function renderStats(data) {
-    const cols = [...FEATURE_KEYS, "final"];
+    const cols = [...FEATURE_KEYS, "final_score"];
     const body = $("statsBody");
     body.innerHTML = cols.map((k) => {
       const arr = data.map(r => r[k]);
@@ -175,7 +175,7 @@
   }
 
   function calcCorrRows(data) {
-    const y = data.map(r => r.final);
+    const y = data.map(r => r.final_score);
     return FEATURE_KEYS.map(k => {
       const x = data.map(r => r[k]);
       return { key: k, corr: pearsonCorr(x, y) };
@@ -329,7 +329,7 @@
 
   function renderCharts(data) {
     const feature = $("featureSelect").value;
-    const y = data.map(r => r.final);
+    const y = data.map(r => r.final_score);
     const x = data.map(r => r[feature]);
 
     drawHistogram($("histCanvas"), y, 10);
@@ -374,7 +374,26 @@
   // ---------- Init ----------
   function init() {
     const ds = loadDataset();
+    const result = cleanData(ds.data);
+    const data = result.cleaned;
 
+    const beforeEl = $("beforeCount");
+    const afterEl = $("afterCount");
+    const removedEl = $("removedCount");
+    const noteEl = $("cleanNote");
+
+    if (beforeEl && afterEl && removedEl) {
+      beforeEl.textContent = result.before;
+      afterEl.textContent = result.after;
+      removedEl.textContent = result.before - result.after;
+    }
+
+    if (noteEl) {
+      noteEl.textContent =
+        result.before === result.after
+          ? "Dataset toza — hech qanday noto‘g‘ri qiymat topilmadi ✅"
+          : "Noto‘g‘ri qiymatlar olib tashlandi ⚠️";
+    }
     if (!ds) {
       $("dsSource").textContent = "Topilmadi";
       $("dsCount").textContent = "-";
@@ -387,12 +406,16 @@
 
     $("dsSource").textContent = ds.key;
     $("dsCount").textContent = `${ds.data.length} ta`;
+    const cleanEl = document.getElementById("cleanInfo");
+    if (cleanEl) {
+      cleanEl.textContent = `${result.before} → ${result.after}`;
+    }
 
-    renderStats(ds.data);
-    const rows = calcCorrRows(ds.data);
+    renderStats(data);
+    const rows = calcCorrRows(data);
     renderCorrTable(rows);
 
-    renderCharts(ds.data);
+    renderCharts(data);
     renderModelMetrics();
 
     $("redrawBtn").addEventListener("click", () => {
@@ -424,3 +447,20 @@
 
   init();
 })();
+
+function cleanData(data) {
+  const before = data.length;
+
+  const cleaned = data.filter(r =>
+    r.ai >= 0 && r.ai <= 100 &&
+    r.dt >= 0 && r.dt <= 100 &&
+    r.kb >= 0 && r.kb <= 100 &&
+    r.ki >= 0 && r.ki <= 100 &&
+    r.es >= 0 && r.es <= 100 &&
+    r.final_score >= 0 && r.final_score <= 100
+  );
+
+  const after = cleaned.length;
+
+  return { cleaned, before, after };
+}

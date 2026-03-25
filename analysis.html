@@ -24,7 +24,7 @@
           <span class="logo-dot"></span>
           <span class="logo-dot"></span>
         </div>
-        
+
         <div class="brand-text">
           <div class="brand-title">GradeAI</div>
           <div class="brand-sub">Tahlil — statistika, correlation, grafiklar</div>
@@ -59,10 +59,31 @@
     </div>
 
     <main id="content" class="content">
-        <h2>
-            Hozirda bu page dataset va model pagega ulanmagan next updatedan so'ng bu page ham ishlaydi
-          </h2>
+      <div class="card" style="margin-top:10px;">
+        <div class="card-head">
+          <h3 class="h2" style="font-size:16px;">Data Cleaning</h3>
+          <span class="tag">Quality</span>
+        </div>
 
+        <div class="row" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+          <div class="meta-chip">
+            <div class="meta-title">Oldin</div>
+            <div class="meta-value" id="beforeCount">-</div>
+          </div>
+
+          <div class="meta-chip">
+            <div class="meta-title">Keyin</div>
+            <div class="meta-value" id="afterCount">-</div>
+          </div>
+
+          <div class="meta-chip">
+            <div class="meta-title">Tozalangan</div>
+            <div class="meta-value" id="removedCount">-</div>
+          </div>
+        </div>
+
+        <p class="muted small" id="cleanNote" style="margin-top:10px;"></p>
+      </div>
       <!-- Header / Intro -->
       <section class="card">
         <div class="card-head">
