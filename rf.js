@@ -197,13 +197,13 @@ function normalizeDataset(arr) {
   return (arr || [])
     .filter(r => FEATURE_KEYS.every(k => typeof r[k] === "number") && typeof r[TARGET_KEY] === "number")
     .map(r => ({
-  ai: r.ai,
-  dt: r.dt,
-  kb: r.kb,
-  ki: r.ki,
-  es: r.es,
-  final_score: r.final_score
-}));
+      ai: r.ai,
+      dt: r.dt,
+      kb: r.kb,
+      ki: r.ki,
+      es: r.es,
+      final_score: r.final_score
+    }));
 }
 
 function loadDatasetFromLS() {
@@ -231,7 +231,7 @@ function makeDemoDataset(n = 60, seed = 42) {
     const noise = (rand() - 0.5) * 8;
     const final = clamp(0.22 * ai + 0.20 * dt + 0.20 * kb + 0.20 * ki + 0.18 * es + noise);
 
-   rows.push({ ai, dt, kb, ki, es, final_score: final });
+    rows.push({ ai, dt, kb, ki, es, final_score: final });
   }
   return rows;
 }
@@ -299,7 +299,7 @@ function renderSavedMetrics() {
     $("maeBadge").textContent = (m.mae ?? "-") === "-" ? "-" : Number(m.mae).toFixed(2);
     $("r2Badge").textContent = (m.r2 ?? "-") === "-" ? "-" : Number(m.r2).toFixed(3);
     $("trainedAt").textContent = `Trained at: ${m.trainedAt || "-"}`;
-  } catch {}
+  } catch { }
 }
 
 function importanceText(importance) {
@@ -357,7 +357,7 @@ async function train() {
   );
 
   // eval
- const yTrue = testData.map(r => r.final_score);
+  const yTrue = testData.map(r => r.final_score);
   const yPred = testData.map(r => predictForest(model, r));
 
   const MSE = mse(yTrue, yPred);
@@ -440,12 +440,55 @@ function fillExample() {
   $("inKI").value = 88;
   $("inES").value = 69;
 }
+// ---------- SEARCH + AUTO FILL ----------
+function findStudentAndFill() {
+  const query = $("studentSearch").value.trim().toLowerCase();
+
+  // ✅ VALIDATION
+  if (!query) {
+    alert("Iltimos, talaba ismini kiriting!");
+    $("studentSearch").focus();
+    return;
+  }
+
+  const raw = localStorage.getItem("gradeai_dataset_v1");
+  if (!raw) {
+    alert("Dataset yo‘q");
+    return;
+  }
+
+  let data = [];
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    alert("Dataset xato");
+    return;
+  }
+
+  const student = data.find(r => {
+    const fio = `${r.lastName} ${r.firstName} ${r.patronymic}`.toLowerCase();
+    return fio.includes(query);
+  });
+
+  if (!student) {
+    alert("Talaba topilmadi");
+    return;
+  }
+
+  // 🔥 AUTO FILL
+  $("inAI").value = student.ai;
+  $("inDT").value = student.dt;
+  $("inKB").value = student.kb;
+  $("inKI").value = student.ki;
+  $("inES").value = student.es;
+}
 
 // ---------- Init ----------
 (function init() {
+
   resetMetricsUI();
   renderSavedMetrics();
-
+$("findStudentBtn")?.addEventListener("click", findStudentAndFill);
   $("trainBtn")?.addEventListener("click", train);
   $("predictBtn")?.addEventListener("click", predict);
 

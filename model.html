@@ -57,9 +57,6 @@
     </div>
 
     <main id="content" class="content">
-         <h2>
-            Hozirda bu page datasetga ulanmagan next updatedan keyin bu page ham ishlay boshlaydi
-          </h2>
       <!-- HERO -->
       <section class="hero">
         <div class="hero-left">
@@ -70,7 +67,8 @@
           </h1>
           <p class="hero-desc">
             Bu sahifada dataset asosida <b>final_score (0–100)</b> ni bashorat qiluvchi Random Forest modeli o‘qitiladi.
-            Model bir nechta <b>decision tree</b> lar ansamblidan iborat bo‘lib, prognoz ularning o‘rtacha qiymati bilan olinadi.
+            Model bir nechta <b>decision tree</b> lar ansamblidan iborat bo‘lib, prognoz ularning o‘rtacha qiymati bilan
+            olinadi.
           </p>
 
           <div class="hero-meta">
@@ -198,8 +196,14 @@
         <!-- Predict -->
         <article class="card">
           <div class="card-head">
+
             <h2 class="h2">3) Prognoz (Predict)</h2>
             <span class="tag">Predict</span>
+          </div>
+         
+          <div>
+            <input class="input" style="width: 80%;" id="studentSearch" placeholder="Talaba ismini yozing..." />
+            <button class="btn" style="width: 100px;" id="findStudentBtn">Topish</button>
           </div>
 
           <p class="muted">5 ta fan bahosini kiriting (0–100). Model yakuniy bahoni hisoblaydi.</p>

@@ -286,7 +286,7 @@
     const padL = 170;
     const padT = 22;
     const padB = 22;
-    const plot = { x: padL, y: padT, w: w - padL - 14, h: h - padT - padB };
+    const plot = { x: padL, y: padT, w: w - padL - 40, h: h - padT - padB };
     drawGrid(ctx, plot, t, 4, rows.length);
 
     // axis center for 0 correlation
