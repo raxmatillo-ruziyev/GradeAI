@@ -6,7 +6,7 @@
 (function () {
   const STORAGE_KEY = "gradeai_dataset_v1";
 
-  let PAGE_SIZE = 5;
+  let PAGE_SIZE = 10;
   let currentPage = 1;
   let editingId = null;
 
@@ -26,8 +26,8 @@
     return [lastName, firstName, patronymic].filter(Boolean).join(" ").trim();
   };
 
-  // Demo dataset (20)
-  function generateSeededData(n = 20) {
+  // Demo dataset (100)
+  function generateSeededData(n = 100) {
     let seed = 77;
     const rand = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
 
@@ -42,25 +42,112 @@
       ["Rasulov", "Jamshid", "Anvar o‘g‘li"],
       ["Sodiqova", "Zarnigor", "Rustam qizi"],
       ["Qodirov", "Bekzod", "Odil o‘g‘li"],
+
+      ["Ergashev", "Dilshod", "Baxtiyor o‘g‘li"],
+      ["Ismoilov", "Shahzod", "Ulug‘bek o‘g‘li"],
+      ["To‘xtayev", "Oybek", "Aziz o‘g‘li"],
+      ["Xolmatov", "Doston", "Sherzod o‘g‘li"],
+      ["Mamatov", "Javohir", "Said o‘g‘li"],
+      ["Yuldashev", "Sanjar", "Akbar o‘g‘li"],
+      ["G‘aniev", "Temur", "Bekzod o‘g‘li"],
+      ["Raximov", "Azamat", "Karim o‘g‘li"],
+      ["Usmonov", "Shukur", "Tursun o‘g‘li"],
+      ["Abdullayev", "Sirojiddin", "Valijon o‘g‘li"],
+
+      ["Nazarov", "Firdavs", "Sodiq o‘g‘li"],
+      ["Husanov", "Kamol", "Botir o‘g‘li"],
+      ["Rahmatov", "Sherzod", "Ilhom o‘g‘li"],
+      ["Qosimov", "Jasurbek", "Olim o‘g‘li"],
+      ["Polvonov", "Beknur", "Ravshan o‘g‘li"],
+      ["Xudoyberdiyev", "Azizbek", "Nodir o‘g‘li"],
+      ["Zokirov", "Davron", "Farhod o‘g‘li"],
+      ["Sharipov", "Ibrohim", "Yunus o‘g‘li"],
+      ["Matkarimov", "Sunnat", "Rahim o‘g‘li"],
+      ["Rustamov", "Sarvar", "Jahongir o‘g‘li"],
+
+      ["Bozorov", "Jamol", "Rashid o‘g‘li"],
+      ["Olimov", "Shahram", "Xasan o‘g‘li"],
+      ["Yo‘ldoshev", "Sardorbek", "Shavkat o‘g‘li"],
+      ["Toshpulatov", "Zafar", "Ilhom o‘g‘li"],
+      ["Qurbonov", "Oybek", "Javlon o‘g‘li"],
+      ["Haqberdiyev", "Islom", "Botir o‘g‘li"],
+      ["Abdurahmonov", "Diyor", "Farrux o‘g‘li"],
+      ["Xo‘jayev", "Bekmurod", "Nazar o‘g‘li"],
+      ["Norbo‘tayev", "Said", "Rustam o‘g‘li"],
+      ["Raxmonov", "Ziyod", "Shavkat o‘g‘li"],
+
+      ["Temirov", "Abdulaziz", "Aziz o‘g‘li"],
+      ["Yusupov", "Shahzod", "Toshmat o‘g‘li"],
+      ["Abdusalomov", "Kamron", "Dilshod o‘g‘li"],
+      ["Turg‘unov", "Zokir", "Bahrom o‘g‘li"],
+      ["Otaboyev", "Bekzod", "Shavkat o‘g‘li"],
+      ["Murodov", "Azamat", "Bekzod o‘g‘li"],
+      ["Jumaev", "Sherali", "Qodir o‘g‘li"],
+      ["Erkinov", "Bobur", "Yodgor o‘g‘li"],
+      ["Halimov", "Akbar", "Zafar o‘g‘li"],
+      ["Saidov", "Nodir", "Tursun o‘g‘li"],
+
+      ["Anvarov", "Bektemir", "Karim o‘g‘li"],
+      ["Karimova", "Dilnoza", "Shavkat qizi"],
+      ["Raximova", "Nigina", "Bahrom qizi"],
+      ["Usmonova", "Madina", "Azamat qizi"],
+      ["Qosimova", "Shahnoza", "Jasur qizi"],
+      ["Islomova", "Zuhra", "Olim qizi"],
+      ["Yo‘ldosheva", "Malohat", "Toshmat qizi"],
+      ["Abdullayeva", "Sevara", "Dilshod qizi"],
+      ["Husanova", "Gulnoza", "Sherzod qizi"],
+      ["Rahmatova", "Nigora", "Ilhom qizi"],
+
+      ["Sharipova", "Munira", "Rustam qizi"],
+      ["Matkarimova", "Dilafruz", "Bekzod qizi"],
+      ["Rustamova", "Aziza", "Jahongir qizi"],
+      ["Bozorova", "Sabina", "Rashid qizi"],
+      ["Olimova", "Shahlo", "Xasan qizi"],
+      ["Toshpulatova", "Zilola", "Ilhom qizi"],
+      ["Qurbonova", "Nilufar", "Javlon qizi"],
+      ["Haqberdiyeva", "Malika", "Botir qizi"],
+      ["Abdurahmonova", "Gulbahor", "Farrux qizi"],
+      ["Xo‘jayeva", "Shaxnoza", "Nazar qizi"],
+
+      ["Norbo‘tayeva", "Gulnoza", "Rustam qizi"],
+      ["Raxmonova", "Dilrabo", "Shavkat qizi"],
+      ["Temirova", "Nigora", "Aziz qizi"],
+      ["Yusupova", "Shirin", "Toshmat qizi"],
+      ["Abdusalomova", "Zarina", "Dilshod qizi"],
+      ["Turg‘unova", "Malohat", "Bahrom qizi"],
+      ["Otaboyeva", "Dildora", "Shavkat qizi"],
+      ["Murodova", "Madina", "Bekzod qizi"],
+      ["Jumaeva", "Sevinch", "Qodir qizi"],
+      ["Erkinova", "Gulchehra", "Yodgor qizi"]
     ];
 
     const rows = [];
     for (let i = 0; i < n; i++) {
       const pick = sampleNames[i % sampleNames.length];
+
       const lastName = pick[0];
       const firstName = pick[1];
       const patronymic = pick[2];
 
-      const ai = clampScore(45 + rand() * 55);
-      const dt = clampScore(40 + rand() * 60);
-      const kb = clampScore(35 + rand() * 65);
-      const ki = clampScore(40 + rand() * 60);
-      const es = clampScore(30 + rand() * 70);
+    
+      const base = 50 + rand() * 40;
+
+      const ai = clampScore(base + rand() * 10);
+      const dt = clampScore(base + rand() * 8);
+      const kb = clampScore(base + rand() * 6);
+      const ki = clampScore(base + rand() * 7);
+      const es = clampScore(base + rand() * 9);
 
       rows.push({
         id: crypto?.randomUUID ? crypto.randomUUID() : String(Date.now() + i),
-        lastName, firstName, patronymic,
-        ai, dt, kb, ki, es,
+        lastName,
+        firstName,
+        patronymic,
+        ai,
+        dt,
+        kb,
+        ki,
+        es,
         final_score: calcFinalScore(ai, dt, kb, ki, es)
       });
     }
@@ -70,12 +157,12 @@
   function loadData() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return generateSeededData(20); // first time only
+      if (!raw) return generateSeededData(100); // first time only
       const parsed = JSON.parse(raw);
-      if (!Array.isArray(parsed)) return generateSeededData(20);
+      if (!Array.isArray(parsed)) return generateSeededData(100);
       return parsed;
     } catch (e) {
-      return generateSeededData(20);
+      return generateSeededData(100);
     }
   }
 
@@ -317,16 +404,19 @@
   });
 
   // ✅ Seed demo (20) ONLY if user wants it (confirm)
+  // ✅ Seed demo (100)
   seedBtn.addEventListener("click", () => {
-    const ok = confirm("Demo dataset (20 ta) bilan almashtirilsinmi? Hozirgi ma’lumotlar o‘chadi.");
+    const ok = confirm("Demo dataset (100 ta) bilan almashtirilsinmi? Hozirgi ma’lumotlar o‘chadi.");
     if (!ok) return;
-    data = generateSeededData(20);
+
+    data = generateSeededData(100);
     saveData(data);
+
     currentPage = 1;
     searchInput.value = "";
+
     renderTable();
   });
-
   // ✅ Clear dataset (0) (confirm)
   clearBtn.addEventListener("click", () => {
     const ok = confirm("Datasetni tozalaysizmi? (0 ta bo‘ladi)");
@@ -389,7 +479,7 @@
     const payload = {
       lastName, firstName, patronymic,
       ai, dt, kb, ki, es,
-final_score: calcFinalScore(ai, dt, kb, ki, es)
+      final_score: calcFinalScore(ai, dt, kb, ki, es)
     };
 
     if (editingId) updateRow(editingId, payload);
