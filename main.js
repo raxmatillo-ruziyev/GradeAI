@@ -60,3 +60,92 @@
     setBurgerState(false);
   });
 })();
+
+
+
+window.addEventListener("load", () => {
+    const loader = document.getElementById("page-loader");
+    
+    // Sahifa tayyor bo'lgach, loader biroz ushlab turilib keyin yo'qoladi
+    setTimeout(() => {
+        loader.classList.add("loader-hidden");
+    }, 3000); 
+});
+
+// Agar siz navigatsiya tugmalariga bosganda ham loader chiqishini xohlasangiz:
+document.querySelectorAll('.navlink, .btn').forEach(link => {
+    link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('/')) {
+            document.getElementById("page-loader").classList.remove("loader-hidden");
+        }
+    });
+});
+const memberData = {
+    'RR': {
+        name: "Ruziyev Raxmatillo",
+        role: "Lead Developer / AI Engineer",
+        tasks: [
+            "Loyiha arxitekturasini (HTML/CSS/JS) ishlab chiqish",
+            "Datasetlarni yig'ish, tozalash va tahlil qilish",
+            "Regression modelini yaratish va uning aniqligini optimallashtirish",
+            "AI modelini veb-interfeysga integratsiya qilish"
+        ]
+    },
+    'AS': {
+        name: "Azimjonov Shaxzod",
+        role: "Data Analysis Support",
+        tasks: [
+            "Ma'lumotlar orasidagi korrelyatsiyani aniqlash",
+            "Dataset trendlarini statistik tahlil qilish",
+            "Natijalarni interpretatsiya qilish va vizuallashtirish"
+        ]
+    },
+    'AA': {
+        name: "Abdunosirov Asrorbek",
+        role: "Model Evaluation Support",
+        tasks: [
+            "Model sifatini MSE, MAE va R² metrikalari orqali baholash",
+            "Bashorat aniqligini nazorat qilish va xatoliklarni kamaytirish",
+            "Algoritm samaradorligini tahlil qilish"
+        ]
+    },
+    'ZA': {
+        name: "Ziyoratquliyev Abbosbek",
+        role: "UI Design Support / Documentation",
+        tasks: [
+            "Loyiha UI/UX dizaynini shakllantirish va optimallashtirish",
+            "Loyiha hujjatlarini (documentation) tayyorlash",
+            "Interfeys elementlarining o'zaro muvofiqligini ta'minlash"
+        ]
+    }
+};
+
+function openMemberModal(id) {
+    const data = memberData[id];
+    document.getElementById('modalAvatar').innerText = id;
+    document.getElementById('modalName').innerText = data.name;
+    document.getElementById('modalRole').innerText = data.role;
+    
+    const taskList = document.getElementById('modalTasks');
+    taskList.innerHTML = ''; // Tozalash
+    data.tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.innerText = task;
+        taskList.appendChild(li);
+    });
+
+    document.getElementById('memberModal').classList.add('is-active');
+}
+
+function closeMemberModal() {
+    document.getElementById('memberModal').classList.remove('is-active');
+}
+
+// Modal tashqarisiga bosganda yopish
+window.onclick = function(event) {
+    const modal = document.getElementById('memberModal');
+    if (event.target == modal) {
+        closeMemberModal();
+    }
+}

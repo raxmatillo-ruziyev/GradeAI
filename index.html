@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GradeAI — Tahlil</title>
+    <title>GradeAI — Konsepsiya</title>
 
-    <!-- Prevent theme flash: set theme BEFORE CSS loads -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"
+        rel="stylesheet">
+
     <script>
         (function () {
             try {
@@ -19,34 +22,53 @@
     </script>
 
     <link rel="stylesheet" href="/main.css" />
+
+    <style>
+        /* .hero-left { padding-right: 20px; } */
+        /* .card { display: flex; flex-direction: column; justify-content: space-between; } */
+        .bullets li b {
+            color: white;
+        }
+
+        /* Kalit so'zlarni ajratib ko'rsatish */
+    </style>
 </head>
 
 <body>
+    <div id="page-loader" class="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-logo-text">Grade AI</div>
+            <div class="loader-logo-title">By Raxmatillo Ruziyev</div>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
     <a class="skip-link" href="#content">Kontentga o‘tish</a>
 
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
 
     <div class="wrap">
-        <!-- NAVBAR -->
         <header class="topbar">
             <div class="brand">
-                <div class="logo">
-                    <span class="logo-dot"></span>
-                    <span class="logo-dot"></span>
-                    <span class="logo-dot"></span>
+                <div class="ai-logo-box">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="5" width="30" height="30" rx="2" stroke="var(--brand)" stroke-width="2" />
+                        <path d="M12 20H28M20 12V28" stroke="var(--brand)" stroke-width="2" stroke-linecap="square" />
+                        <circle cx="20" cy="20" r="4" fill="var(--brand)" />
+                        <path d="M5 12H10M30 12H35M5 28H10M30 28H35" stroke="var(--brand)" stroke-width="2" />
+                    </svg>
                 </div>
                 <div class="brand-text">
                     <div class="brand-title">GradeAI</div>
-                    <div class="brand-sub">Tahlil — grafiklar, correlation, statistika</div>
                 </div>
             </div>
 
             <nav class="nav" aria-label="Asosiy navigatsiya">
-                <a class="navlink" href="/index.html">Konsepsiya</a>
+                <a class="navlink is-active" href="/index.html">Konsepsiya</a>
                 <a class="navlink" href="/dataset.html">Dataset</a>
                 <a class="navlink" href="/model.html">Model (AI)</a>
-                <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+                <a class="navlink" href="/analysis.html">Tahlil</a>
             </nav>
 
             <div class="topbar-actions">
@@ -54,50 +76,45 @@
                     <span class="icon-sun" aria-hidden="true">☀</span>
                     <span class="icon-moon" aria-hidden="true">🌙</span>
                 </button>
-
-                <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
+                <button class="burger" id="burger" type="button" aria-label="Menyuni ochish">
                     <span></span><span></span><span></span>
                 </button>
             </div>
         </header>
 
-        <!-- Mobile nav -->
         <div class="mobile-nav" id="mobileNav" hidden>
-            <a class="navlink" href="/index.html">Konsepsiya</a>
+            <a class="navlink is-active" href="/index.html">Konsepsiya</a>
             <a class="navlink" href="/dataset.html">Dataset</a>
             <a class="navlink" href="/model.html">Model (AI)</a>
-            <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+            <a class="navlink" href="/analysis.html">Tahlil</a>
         </div>
 
         <main id="content" class="content">
-            <!-- HERO -->
             <section class="hero">
                 <div class="hero-left">
-                    <p class="kicker">Kurs loyihasi / Mustaqil ish</p>
-
+                    <p class="kicker">✨ Sun’iy Intellekt Loyihasi</p>
                     <h1 class="hero-title">
                         Talabalar yakuniy bahosini bashoratlash
                         <span class="badge">Regression</span>
                     </h1>
-
                     <p class="hero-desc">
                         Maqsad — semestr davomida fanlardan olingan ballar asosida <b>final_score (0–100)</b> ni
-                        oldindan taxmin qilish.
-                        Bu erta ogohlantirish, individual yondashuv va resurslarni rejalashtirishga yordam beradi.
+                        oldindan taxmin qilish. Bu tizim o'qituvchilarga talabalar o'zlashtirishini erta tahlil qilish
+                        imkonini beradi.
                     </p>
 
                     <div class="hero-meta">
                         <div class="meta-chip">
-                            <div class="meta-title">Format</div>
-                            <div class="meta-value">Web (HTML + CSS + JS)</div>
+                            <div class="meta-title">⚙️ Texnologiya</div>
+                            <div class="meta-value">Web (AI Integrated)</div>
                         </div>
                         <div class="meta-chip">
-                            <div class="meta-title">Dataset</div>
-                            <div class="meta-value">100+ ta talaba ma’lumoti</div>
+                            <div class="meta-title">📊 Ma'lumot</div>
+                            <div class="meta-value">100+ Realistik Data</div>
                         </div>
                         <div class="meta-chip">
-                            <div class="meta-title">Natija</div>
-                            <div class="meta-value">final_score</div>
+                            <div class="meta-title">🎯 Target</div>
+                            <div class="meta-value">final_score (0-100)</div>
                         </div>
                     </div>
                 </div>
@@ -108,89 +125,94 @@
                             <h2 class="h2">Guruh a’zolari</h2>
                             <span class="pill">GradeAI Team</span>
                         </div>
-
                         <ul class="members">
-                            <li>
-                                <span class="avatar">R</span>
+                            <li onclick="openMemberModal('RR')">
+                                <span class="avatar">RR</span>
                                 <div>
                                     <div class="mem-name">Ruziyev Raxmatillo</div>
-                                    <div class="mem-sub">Lead Developer / AI Engineer (Dataset, Analysis, Model, Web
-                                        Integration)</div>
+                                    <div class="mem-sub">Lead / AI Engineer</div>
                                 </div>
                             </li>
-                            <li>
-                                <span class="avatar">A</span>
+                            <li onclick="openMemberModal('AS')">
+                                <span class="avatar">AS</span>
                                 <div>
                                     <div class="mem-name">Azimjonov Shaxzod</div>
-                                    <div class="mem-sub">Data Analysis Support (Correlation, Data Interpretation)</div>
+                                    <div class="mem-sub">Data Analysis</div>
                                 </div>
                             </li>
-                            <li>
-                                <span class="avatar">A</span>
+                            <li onclick="openMemberModal('AA')">
+                                <span class="avatar">AA</span>
                                 <div>
                                     <div class="mem-name">Abdunosirov Asrorbek</div>
-                                    <div class="mem-sub">Model Evaluation Support (MSE, MAE, R² Analysis)</div>
+                                    <div class="mem-sub">Model Evaluation</div>
                                 </div>
                             </li>
-                            <li>
-                                <span class="avatar">Z</span>
+                            <li onclick="openMemberModal('ZA')">
+                                <span class="avatar">ZA</span>
                                 <div>
                                     <div class="mem-name">Ziyoratquliyev Abbosbek</div>
-                                    <div class="mem-sub">UI Design Support / Documentation</div>
+                                    <div class="mem-sub">UI Design</div>
                                 </div>
                             </li>
                         </ul>
+
+                        <div id="memberModal" class="modal-overlay"
+                            onclick="if(event.target == this) closeMemberModal()">
+                            <div class="modal-card">
+                                <button class="modal-close" onclick="closeMemberModal()">&times;</button>
+                                <div class="modal-header">
+                                    <span id="modalAvatar" class="avatar large"></span>
+                                    <div class="modal-title-group">
+                                        <h2 id="modalName" class="modal-name"></h2>
+                                        <p id="modalRole" class="modal-role"></p>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                    <h3 class="modal-subtitle">Loyihadagi mas'uliyati:</h3>
+                                    <ul id="modalTasks" class="modal-task-list"></ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- GRID CARDS -->
             <section class="grid">
                 <article class="card">
                     <div class="card-head">
                         <h2 class="h2">1) Muammo qo‘yilishi</h2>
                         <span class="tag">Problem</span>
                     </div>
-
                     <p>
-                        Amaliyotda yakuniy baho ko‘pincha semestr oxirida shakllanadi.
-                        Shuning uchun o‘qituvchi <b>qaysi talaba xavf guruhida</b> ekanini erta bilolmaydi.
-                        Bu esa yordamni kechiktiradi va ta’lim samaradorligini pasaytirishi mumkin.
+                        O‘qituvchi <b>xavf guruhidagi</b> talabalarni faqat imtihondan so'ng aniqlaydi. Bizning yechim
+                        esa bu jarayonni avtomatlashtiradi.
                     </p>
-
                     <div class="callout">
-                        <div class="callout-title">Nega aynan regression?</div>
+                        <div class="callout-title">💡 Nega aynan regression?</div>
                         <p class="muted">
-                            Chunki chiqish qiymatimiz kategoriya emas, balki <b>sonli natija</b> (0–100).
-                            Shuning uchun regression — eng mos yondashuv.
+                            Chunki natijamiz klassifikatsiya emas, balki <b>0 dan 100 gacha bo'lgan uzluksiz son</b>.
                         </p>
                     </div>
-
-                    <ul class="bullets">
-                        <li><b>Erta ogohlantirish:</b> past baho ehtimolini oldindan ko‘rish.</li>
-                        <li><b>Strategiya:</b> o‘qitish uslubini moslashtirish va takrorlash rejasini tuzish.</li>
-                        <li><b>Ta’sir tahlili:</b> qaysi fan(lar) final bahoga ko‘proq ta’sir qilishini aniqlash.</li>
+                    <ul class="callout" style="list-style: none;">
+                        <li><b>Erta ogohlantirish:</b> Past baho xavfini oldindan ko'rish.</li><br>
+                        <li><b>Strategiya:</b> O‘qitish uslubini individual moslashtirish.</li>
                     </ul>
                 </article>
 
                 <article class="card">
                     <div class="card-head">
-                        <h2 class="h2">2) Loyihaning dolzarbligi</h2>
+                        <h2 class="h2">2) Dolzarbligi</h2>
                         <span class="tag">Relevance</span>
                     </div>
-
                     <p>
-                        Ta’limda ma’lumotga asoslangan qaror (data-driven decision) qabul qilish muhim.
-                        Ushbu loyiha real amaliy vazifani modellashtiradi: bahoni taxmin qilish orqali
-                        pedagogik qarorlarni tezlashtirish.
-                    </p>
-
+                        Ta’limda "Data-driven" qarorlar qabul qilish orqali o'qitish sifatini yangi bosqichga olib
+                        chiqish mumkin.
+                    </p><br>
                     <ul class="bullets">
-                        <li><b>Ta’lim sifatini oshirish:</b> riskli talabaga erta yordam.</li>
-                        <li><b>Personalizatsiya:</b> individual reja va tavsiyalar.</li>
-                        <li><b>Resurslarni boshqarish:</b> mentor/repetitor ehtiyojini oldindan bilish.</li>
-                        <li><b>Analitika:</b> fanlar ta’sirini ko‘rish (“feature influence”).</li>
-                        <li><b>AI amaliyoti:</b> Data Science + Web integratsiyasi.</li>
+                        <li class="callout"><b>Personalizatsiya:</b> Har bir talaba uchun individual yondashuv.</li>
+                        <li class="callout"><b>Analitika:</b> Fanlarning yakuniy bahoga ta’sir darajasini aniqlash.</li>
+                        <li class="callout"><b>AI Amaliyoti:</b> Nazariy bilimni real veb-loyiha bilan birlashtirish.
+                        </li>
                     </ul>
                 </article>
 
@@ -199,40 +221,33 @@
                         <h2 class="h2">3) Maqsad va vazifalar</h2>
                         <span class="tag">Goal</span>
                     </div>
-
-                    <p>
-                        <b>Asosiy maqsad:</b> 5 ta fan bo‘yicha ballarga tayangan holda <b>final_score</b> ni bashorat
-                        qiluvchi
-                        regression model yaratish va natijani metrikalar bilan baholash.
-                    </p>
-
                     <div class="steps">
                         <div class="step">
                             <div class="step-num">01</div>
                             <div class="step-body">
-                                <div class="step-title">Dataset tayyorlash</div>
-                                <div class="step-sub">Sun’iy ma’lumot / realga yaqin struktura</div>
+                                <div class="step-title">Dataset</div>
+                                <div class="step-sub">Strukturaviy ma'lumotlarni yig'ish</div>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-num">02</div>
                             <div class="step-body">
                                 <div class="step-title">Preprocessing</div>
-                                <div class="step-sub">Bo‘sh qiymat, outlier, scale</div>
+                                <div class="step-sub">Ma'lumotlarni tozalash va normalizatsiya</div>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-num">03</div>
                             <div class="step-body">
-                                <div class="step-title">Model qurish</div>
-                                <div class="step-sub">Linear Regression (boshlang‘ich)</div>
+                                <div class="step-title">Training</div>
+                                <div class="step-sub">Linear Regression modelini o'qitish</div>
                             </div>
                         </div>
                         <div class="step">
                             <div class="step-num">04</div>
                             <div class="step-body">
-                                <div class="step-title">Baholash</div>
-                                <div class="step-sub">MAE / MSE / R² + grafiklar</div>
+                                <div class="step-title">Evaluation</div>
+                                <div class="step-sub">MAE, R² metrikalari bilan tekshirish</div>
                             </div>
                         </div>
                     </div>
@@ -240,43 +255,48 @@
 
                 <article class="card">
                     <div class="card-head">
-                        <h2 class="h2">4) Masalaning turi</h2>
+                        <h2 class="h2">4) Masalaning xarakteri</h2>
                         <span class="tag">Type</span>
-                    </div>
 
+                    </div>
+                    <p class="callout" style="margin-top: 10px; text-align: left;">Barcha kiruvchi ma'lumotlar sonli
+                        formatda qayta ishlanadi.</p> <br>
                     <div class="stat">
                         <div class="stat-item">
-                            <div class="stat-top">Masala</div>
+                            <div class="stat-top">📈 Algoritm</div>
                             <div class="stat-big">Regression</div>
-                            <div class="muted">Chiqish: sonli qiymat</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-top">Oraliq</div>
+                            <div class="stat-top">🔢 Diapazon</div>
                             <div class="stat-big">0–100</div>
-                            <div class="muted">final_score diapazoni</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-top">Kirish</div>
-                            <div class="stat-big">5 ta fan</div>
-                            <div class="muted">xususiyatlar (features)</div>
+                            <div class="stat-top">📚 Features</div>
+                            <div class="stat-big">5 fan</div>
                         </div>
                     </div>
+
                 </article>
 
                 <article class="card">
                     <div class="card-head">
-                        <h2 class="h2">5) Dataset haqida</h2>
+                        <h2 class="h2">5) Dataset tahlili</h2>
                         <span class="tag">Data</span>
                     </div>
-
                     <p>
-                        Dataset har bir talaba uchun 5 ta fan ballari va yakuniy baho — <b>final_score</b> ni saqlaydi.
-                        Keyingi bosqichda correlation, taqsimotlar va trendlar orqali tahlil qilinadi.
-                    </p>
-
-                    <div class="link-row">
-                        <a class="btn" href="/dataset.html">dataset.html →</a>
-                        <span class="muted">CSV/JSON ko‘rinishida ham ulash mumkin</span>
+                        Loyihaning asosi bo'lgan dataset korrelyatsiya va trendlar asosida chuqur tahlil qilinadi.
+                        To'liq jadvalni quyidagi tugma orqali ko'rishingiz mumkin:
+                    </p> <br>
+                    <div class="link-row" style="margin-top: auto;">
+                        <a class="btn" href="/dataset.html">
+                            <span>Datasetni ko'rish</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                stroke-linejoin="round" class="btn-icon">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
                     </div>
                 </article>
 
@@ -285,33 +305,24 @@
                         <h2 class="h2">6) Kutilayotgan natija</h2>
                         <span class="tag">Output</span>
                     </div>
-
                     <p>
-                        Yakunda model kirish ballari asosida final bahoni taxmin qiladi.
-                        Natijalar <b>metrikalar</b> (MAE/MSE/R²) va <b>grafiklar</b> orqali tahlil qilinadi.
+                        Model 90% dan yuqori aniqlik bilan talaba bahosini bashorat qilishi va buni grafik ko'rinishda
+                        taqdim etishi kutilmoqda.
                     </p>
-
-                    <div class="callout">
-                        <div class="callout-title">Keyingi yaxshilashlar</div>
-                        <ul class="bullets compact">
-                            <li>Regularizatsiya (Ridge/Lasso)</li>
-                            <li>Tree-based modellar (RandomForest, XGBoost)</li>
-                            <li>Cross-validation</li>
-                            <li>Feature importance / interpretatsiya</li>
-                        </ul>
+                    <div class="callout custom-border">
+                        <div class="callout-title">🚀 Amaldagi model:</div>
+                        <p>Hozirda <b>Random Forest</b> algoritmi eng yuqori aniqlikni ko'rsatmoqda.</p>
                     </div>
                 </article>
             </section>
 
             <footer class="footer">
-                <div class="muted">© 2026 GradeAI — Tahlil sahifasi</div>
+                <div class="muted">© 2026 GradeAI — Sifatli ta'lim uchun zamonaviy analitika</div>
             </footer>
         </main>
     </div>
 
-    <!-- Smooth fade overlay for theme switching -->
     <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
-
     <script src="/main.js"></script>
 </body>
 

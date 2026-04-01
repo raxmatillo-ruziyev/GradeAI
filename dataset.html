@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GradeAI — Dataset</title>
 
-    <!-- Prevent theme flash -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script>
         (function () {
             try {
@@ -22,19 +23,30 @@
 </head>
 
 <body>
+    <div id="page-loader" class="loader-wrapper">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-logo-text">Grade AI</div>
+            <div class="loader-logo-title">By Raxmatillo Ruziyev</div>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
+
     <a class="skip-link" href="#content">Kontentga o‘tish</a>
 
     <div class="bg-orb orb-1"></div>
     <div class="bg-orb orb-2"></div>
 
     <div class="wrap">
-        <!-- TOPBAR -->
         <header class="topbar">
             <div class="brand">
-                <div class="logo">
-                    <span class="logo-dot"></span>
-                    <span class="logo-dot"></span>
-                    <span class="logo-dot"></span>
+                <div class="ai-logo-box">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="5" width="30" height="30" rx="2" stroke="var(--brand)" stroke-width="2" />
+                        <path d="M12 20H28M20 12V28" stroke="var(--brand)" stroke-width="2" stroke-linecap="square" />
+                        <circle cx="20" cy="20" r="4" fill="var(--brand)" />
+                        <path d="M5 12H10M30 12H35M5 28H10M30 28H35" stroke="var(--brand)" stroke-width="2" />
+                    </svg>
                 </div>
                 <div class="brand-text">
                     <div class="brand-title">GradeAI</div>
@@ -61,7 +73,6 @@
             </div>
         </header>
 
-        <!-- Mobile nav -->
         <div class="mobile-nav" id="mobileNav" hidden>
             <a class="navlink" href="/index.html">Konsepsiya</a>
             <a class="navlink is-active" href="/dataset.html">Dataset</a>
@@ -70,7 +81,6 @@
         </div>
 
         <main id="content" class="content">
-            <!-- HERO -->
             <section class="hero">
                 <div class="hero-left">
                     <p class="kicker">Ma’lumotlar bazasi / Jadval</p>
@@ -111,15 +121,13 @@
                             <button class="btn" id="addBtn" type="button">+ Talaba qo‘shish</button>
                             <button class="btn btn-ghost" id="downloadBtn" type="button">CSV yuklab olish</button>
 
-                            <!-- 🔥 NEW: Notebook download -->
                             <a href="./GradeAI.ipynb" download class="btn btn-ghost">
-                                📘 Jupyter Notebook yuklab olish
+                                📘 Jupyter Notebook
                             </a>
-                              <a href="./GradeAI.docx" download class="btn btn-ghost">
+                            <a href="./GradeAI.docx" download class="btn btn-ghost">
                                 📘 Word fileni yuklab olish 
                             </a>
 
-                            <!-- FIXED: reset no longer forces 20 -->
                             <div class="action-row">
                                 <button class="btn btn-ghost" id="resetUiBtn" type="button">Reset UI</button>
                                 <button class="btn btn-ghost" id="seedBtn" type="button">Demo (100)</button>
@@ -134,7 +142,6 @@
                 </div>
             </section>
 
-            <!-- TABLE CARD -->
             <section class="card">
                 <div class="card-head">
                     <h2 class="h2">Dataset jadvali</h2>
@@ -171,42 +178,32 @@
                                 <th>Amallar</th>
                             </tr>
                         </thead>
-
                         <tbody id="tbody"></tbody>
                     </table>
                 </div>
 
-                <!-- FIXED: pagination one row -->
                 <div class="pagination">
                     <button class="btn btn-ghost" id="prevBtn" type="button">← Oldingi</button>
                     <div class="page-info" id="pageInfo">1 / 1</div>
                     <button class="btn btn-ghost" id="nextBtn" type="button">Keyingi →</button>
                 </div>
-
-                <p class="muted small" style="margin-top:10px;">
-                    Fan ballari: 0–100. final_score avtomatik hisoblanadi.
-                </p>
             </section>
 
             <footer class="footer">
-                <div class="muted">© 2026 GradeAI — Dataset</div>
+                <div class="muted">© 2026 GradeAI — Sifatli ta'lim analitikasi</div>
             </footer>
         </main>
     </div>
 
-    <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
-
-    <!-- MODAL -->
     <div class="modal" id="modal" hidden>
         <div class="modal-backdrop" data-close="1"></div>
-
-        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card" role="dialog" aria-modal="true">
             <div class="modal-head">
                 <div>
                     <div class="h2" id="modalTitle">Talaba qo‘shish</div>
-                    <div class="muted small">F.I.Sh va fan ballarini kiriting</div>
+                    <div class="muted small">Ma'lumotlarni kiriting</div>
                 </div>
-                <button class="icon-btn" id="closeModal" type="button" aria-label="Yopish">✕</button>
+                <button class="icon-btn" id="closeModal" type="button">✕</button>
             </div>
 
             <form id="form" class="form">
@@ -220,30 +217,14 @@
                         <input class="input" id="firstName" type="text" required placeholder="Masalan: Raxmatillo" />
                     </div>
                     <div class="field">
-                        <label class="label">Sharif (Otasining ismi)</label>
+                        <label class="label">Sharif</label>
                         <input class="input" id="patronymic" type="text" placeholder="Masalan: Xolmat o‘g‘li" />
                     </div>
-
-                    <div class="field">
-                        <label class="label">AI asoslari</label>
-                        <input class="input" id="ai" type="number" min="0" max="100" required />
-                    </div>
-                    <div class="field">
-                        <label class="label">Differensial</label>
-                        <input class="input" id="dt" type="number" min="0" max="100" required />
-                    </div>
-                    <div class="field">
-                        <label class="label">Kiberxavfsizlik</label>
-                        <input class="input" id="kb" type="number" min="0" max="100" required />
-                    </div>
-                    <div class="field">
-                        <label class="label">Kompyuter inj.</label>
-                        <input class="input" id="ki" type="number" min="0" max="100" required />
-                    </div>
-                    <div class="field">
-                        <label class="label">Ehtimol/Stat</label>
-                        <input class="input" id="es" type="number" min="0" max="100" required />
-                    </div>
+                    <div class="field"><label class="label">AI asoslari</label><input class="input" id="ai" type="number" min="0" max="100" required /></div>
+                    <div class="field"><label class="label">Differensial</label><input class="input" id="dt" type="number" min="0" max="100" required /></div>
+                    <div class="field"><label class="label">Kiberxavfsizlik</label><input class="input" id="kb" type="number" min="0" max="100" required /></div>
+                    <div class="field"><label class="label">Kompyuter inj.</label><input class="input" id="ki" type="number" min="0" max="100" required /></div>
+                    <div class="field"><label class="label">Ehtimol/Stat</label><input class="input" id="es" type="number" min="0" max="100" required /></div>
                 </div>
 
                 <div class="modal-actions">
@@ -257,5 +238,4 @@
     <script src="/main.js"></script>
     <script src="/dataset.js"></script>
 </body>
-
 </html>
