@@ -117,19 +117,18 @@
                             <span class="pill">Dataset Tools</span>
                         </div>
 
-                        <div class="dataset-actions">
-                            <button class="btn" id="addBtn" type="button">+ Talaba qo‘shish</button>
-                            <button class="btn btn-ghost" id="downloadBtn" type="button">CSV yuklab olish</button>
+                        <div class="dataset-actions" style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <button class="btn" id="addBtn" type="button">+ Talaba qo‘shish</button>
+                                <button class="btn btn-ghost" id="downloadBtn" type="button">CSV yuklab olish</button>
+                            </div>
 
-                            <a href="./GradeAI.ipynb" download class="btn btn-ghost">
-                                📘 Jupyter Notebook
-                            </a>
-                            <a href="./GradeAI.docx" download class="btn btn-ghost">
-                                📘 Word fileni yuklab olish 
-                            </a>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <a href="./GradeAI.ipynb" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 Notebook</a>
+                                <a href="./GradeAI.docx" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 Word File</a>
+                            </div>
 
-                            <div class="action-row">
-                                <button class="btn btn-ghost" id="resetUiBtn" type="button">Reset UI</button>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 5px;">
                                 <button class="btn btn-ghost" id="seedBtn" type="button">Demo (100)</button>
                                 <button class="btn btn-ghost danger" id="clearBtn" type="button">Clear (0)</button>
                             </div>
@@ -197,11 +196,11 @@
 
     <div class="modal" id="modal" hidden>
         <div class="modal-backdrop" data-close="1"></div>
-        <div class="modal-card" role="dialog" aria-modal="true">
-            <div class="modal-head">
+        <div class="modal-card_" role="dialog" aria-modal="true">
+            <div class="modal-head_">
                 <div>
-                    <div class="h2" id="modalTitle">Talaba qo‘shish</div>
-                    <div class="muted small">Ma'lumotlarni kiriting</div>
+                    <div class="h2" id="modalTitle">Talaba qo‘shish</div><br>
+                    <div class="muted small">Ma'lumotlarni kiriting</div> <br>
                 </div>
                 <button class="icon-btn" id="closeModal" type="button">✕</button>
             </div>
@@ -218,7 +217,7 @@
                     </div>
                     <div class="field">
                         <label class="label">Sharif</label>
-                        <input class="input" id="patronymic" type="text" placeholder="Masalan: Xolmat o‘g‘li" />
+                        <input class="input" id="patronymic" type="text" placeholder="Masalan: Rustamali o‘g‘li" />
                     </div>
                     <div class="field"><label class="label">AI asoslari</label><input class="input" id="ai" type="number" min="0" max="100" required /></div>
                     <div class="field"><label class="label">Differensial</label><input class="input" id="dt" type="number" min="0" max="100" required /></div>
@@ -227,7 +226,7 @@
                     <div class="field"><label class="label">Ehtimol/Stat</label><input class="input" id="es" type="number" min="0" max="100" required /></div>
                 </div>
 
-                <div class="modal-actions">
+                <div class="modal-actions_">
                     <button class="btn btn-ghost" type="button" id="cancelBtn">Bekor</button>
                     <button class="btn" type="submit" id="saveBtn">Saqlash</button>
                 </div>
@@ -235,7 +234,6 @@
         </div>
     </div>
 
-    <script src="/main.js"></script>
     <script src="/dataset.js"></script>
 </body>
 </html>

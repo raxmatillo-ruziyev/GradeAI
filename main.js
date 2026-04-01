@@ -69,7 +69,7 @@ window.addEventListener("load", () => {
     // Sahifa tayyor bo'lgach, loader biroz ushlab turilib keyin yo'qoladi
     setTimeout(() => {
         loader.classList.add("loader-hidden");
-    }, 3000); 
+    }, 1000); 
 });
 
 // Agar siz navigatsiya tugmalariga bosganda ham loader chiqishini xohlasangiz:
