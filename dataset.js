@@ -1,32 +1,37 @@
+
+  window.onload = () => {
+    setTimeout(() => document.getElementById("page-loader").classList.add("loader-hidden"), 800);
+    renderTable();
+  };
+
+
 (function () {
   const STORAGE_KEY = "gradeai_dataset_v1";
 
   // ==========================================
-  // 1. HAQIQIY AI MODELI (Linear Regression)
+  // 1. DATASET VA AI KONFIGURATSIYASI
   // ==========================================
+  const uzbekNames = {
+    firstNames: ["Raxmatillo", "Shaxzod", "Asrorbek", "Abbosbek", "Sardor", "Mirfayz", "Javoxir", "Qudrat", "Dilmurod", "Akrom", "Baxodir", "Doston", "Elbek", "Farrux", "Gairat", "Hamid", "Ilxom", "Jalol", "Karim", "Mirjon", "Nasrulla", "Oybek", "Qayyum", "Rahmon", "Sanjar", "Toir", "Ulug'bek", "Vali", "Zafar", "Aziz"],
+    lastNames: ["Ruziyev", "Azimjonov", "Abdunosirov", "Ziyoratquliyev", "Karimov", "Toshmatov", "Abdulloyev", "Mirxolov", "Ortiqov", "Qo'chqarov", "Shodmonov", "Turaev", "Uralov", "Valiyev", "Xalilov", "Yusupov", "Zaynalov", "Boboyev", "Choriyev", "Daminov", "Esonov", "G'aniyev", "Haydarov", "Ibrohimov", "Jalolov"],
+    patronymics: ["Rustamali o'g'li", "Majidali o'g'li", "Abdumalikov o'g'li", "Hamidali o'g'li", "Rashidali o'g'li", "Sultonali o'g'li", "Alimali o'g'li", "Qudratali o'g'li", "Mirhadiali o'g'li", "Bobirali o'g'li", "Nazarali o'g'li", "Ismoili o'g'li"]
+  };
+
   class GradePredictorAI {
     constructor() {
-      // Dastlabki tasodifiy vaznlar
-      this.weights = { ai: 0.25, dt: 0.2, kb: 0.2, ki: 0.2, es: 0.15 };
-      this.bias = 1.5;
-      this.learningRate = 0.00001; 
+      this.weights = { ai: 0.22, dt: 0.2, kb: 0.2, ki: 0.2, es: 0.18 };
+      this.bias = 0.5;
+      this.learningRate = 0.00001;
     }
 
-    // Modelni dataset asosida o'qitish (Gradient Descent)
     train(data, iterations = 500) {
       if (!data || data.length === 0) return;
-      
       for (let i = 0; i < iterations; i++) {
         data.forEach(row => {
-          const prediction = (row.ai * this.weights.ai) + 
-                             (row.dt * this.weights.dt) + 
-                             (row.kb * this.weights.kb) + 
-                             (row.ki * this.weights.ki) + 
-                             (row.es * this.weights.es) + this.bias;
-
-          const error = row.final_score - prediction;
-
-          // Vaznlarni yangilash
+          const pred = (row.ai * this.weights.ai) + (row.dt * this.weights.dt) + 
+                       (row.kb * this.weights.kb) + (row.ki * this.weights.ki) + 
+                       (row.es * this.weights.es) + this.bias;
+          const error = row.final_score - pred;
           this.weights.ai += error * row.ai * this.learningRate;
           this.weights.dt += error * row.dt * this.learningRate;
           this.weights.kb += error * row.kb * this.learningRate;
@@ -35,178 +40,137 @@
           this.bias += error * this.learningRate;
         });
       }
-      console.log("GradeAI o'qitildi. Yangi parametrlar:", this.weights);
     }
 
-    // Bashorat berish
     predict(ai, dt, kb, ki, es) {
-      let p = (ai * this.weights.ai) + (dt * this.weights.dt) + 
-              (kb * this.weights.kb) + (ki * this.weights.ki) + 
-              (es * this.weights.es) + this.bias;
-      
-      // Realistiklik uchun biroz tebranish (Noise)
-      const noise = (Math.random() * 2) - 1; 
-      return Math.max(0, Math.min(100, Math.round(p + noise)));
+      const p = (ai * this.weights.ai) + (dt * this.weights.dt) + 
+                (kb * this.weights.kb) + (ki * this.weights.ki) + 
+                (es * this.weights.es) + this.bias;
+      return Math.max(0, Math.min(100, Math.round(p + (Math.random() * 2 - 1))));
     }
   }
 
   const AI = new GradePredictorAI();
-
-  // ==========================================
-  // 2. DATASET BOSHQARUVI
-  // ==========================================
-  let PAGE_SIZE = 5;
-  let currentPage = 1;
-  let editingId = null;
   let data = [];
+  let currentPage = 1;
+  const PAGE_SIZE = 10;
+  let editingId = null;
 
-  function loadData() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return generateInitialData(20);
-    return JSON.parse(raw);
-  }
-
-  function saveData(rows) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
-    // Har safar ma'lumot saqlanganda AI o'qitiladi
-    AI.train(rows);
-  }
-
-  function generateInitialData(n) {
-    const rows = [];
-    for (let i = 0; i < n; i++) {
-      const base = 60 + Math.random() * 30;
-      const row = {
-        id: crypto.randomUUID(),
-        lastName: "Talaba", firstName: i + 1 + "-son", patronymic: "",
-        ai: Math.round(base + Math.random() * 5),
-        dt: Math.round(base - Math.random() * 5),
-        kb: Math.round(base + Math.random() * 2),
-        ki: Math.round(base - Math.random() * 3),
-        es: Math.round(base + Math.random() * 4)
-      };
-      // Dastlabki ma'lumotlar uchun o'rtacha hisoblab turamiz
-      row.final_score = Math.round((row.ai + row.dt + row.kb + row.ki + row.es) / 5);
-      rows.push(row);
-    }
-    return rows;
-  }
-
-  data = loadData();
-  AI.train(data); // Dasturni boshida AIni o'qitib olamiz
-
-  // ---------- DOM Elementlar ----------
+  // DOM
   const tbody = document.getElementById("tbody");
-  const statCount = document.getElementById("statCount");
   const modal = document.getElementById("modal");
   const form = document.getElementById("form");
+  const loader = document.getElementById("page-loader");
 
-  // ---------- Render ----------
+  // ==========================================
+  // 2. FUNKSIYALAR
+  // ==========================================
+
+  function showLoader() { loader?.classList.remove("loader-hidden"); }
+  function hideLoader() { loader?.classList.add("loader-hidden"); }
+
+  function generateDataset(count) {
+    const records = [];
+    for (let i = 0; i < count; i++) {
+      const fName = uzbekNames.firstNames[Math.floor(Math.random() * uzbekNames.firstNames.length)];
+      const lName = uzbekNames.lastNames[Math.floor(Math.random() * uzbekNames.lastNames.length)];
+      const patr = uzbekNames.patronymics[Math.floor(Math.random() * uzbekNames.patronymics.length)];
+      const base = 55 + Math.random() * 40;
+      const r = {
+        id: crypto.randomUUID(),
+        lastName: lName, firstName: fName, patronymic: patr,
+        ai: Math.round(base + (Math.random() - 0.5) * 10),
+        dt: Math.round(base + (Math.random() - 0.5) * 10),
+        kb: Math.round(base + (Math.random() - 0.5) * 10),
+        ki: Math.round(base + (Math.random() - 0.5) * 10),
+        es: Math.round(base + (Math.random() - 0.5) * 10),
+      };
+      r.final_score = Math.round(r.ai*0.22 + r.dt*0.2 + r.kb*0.2 + r.ki*0.2 + r.es*0.18);
+      records.push(r);
+    }
+    return records;
+  }
+
   function renderTable() {
-    const filtered = data; // Qidiruv logikasi qo'shilsa shu yerga tushadi
     const start = (currentPage - 1) * PAGE_SIZE;
-    const pageRows = filtered.slice(start, start + PAGE_SIZE);
-
-    statCount.textContent = filtered.length;
-    document.getElementById("tableTag").textContent = `${filtered.length} records`;
-
+    const pageRows = data.slice(start, start + PAGE_SIZE);
+    document.getElementById("statCount").textContent = data.length;
+    
     tbody.innerHTML = pageRows.map((r, idx) => `
       <tr>
         <td>${start + idx + 1}</td>
         <td>${r.lastName} ${r.firstName}</td>
-        <td>${r.ai}</td>
-        <td>${r.dt}</td>
-        <td>${r.kb}</td>
-        <td>${r.ki}</td>
-        <td>${r.es}</td>
+        <td>${r.ai}</td><td>${r.dt}</td><td>${r.kb}</td><td>${r.ki}</td><td>${r.es}</td>
         <td style="color:var(--brand)"><b>${r.final_score}</b></td>
         <td>
-          <button class="mini-btn" onclick="editRow('${r.id}')">Tahrirlash</button>
+          <button class="mini-btn" onclick="editRow('${r.id}')">Tahrir</button>
           <button class="mini-btn danger" onclick="deleteRow('${r.id}')">O'chirish</button>
         </td>
       </tr>
     `).join("");
-
-    document.getElementById("pageInfo").textContent = `${currentPage} / ${Math.ceil(data.length / PAGE_SIZE)}`;
+    document.getElementById("pageInfo").textContent = `${currentPage} / ${Math.ceil(data.length / PAGE_SIZE) || 1}`;
   }
 
-  // ---------- CRUD Operatsiyalar ----------
-  window.editRow = (id) => {
-    const row = data.find(r => r.id === id);
-    if (!row) return;
-    editingId = id;
-    document.getElementById("lastName").value = row.lastName;
-    document.getElementById("firstName").value = row.firstName;
-    document.getElementById("ai").value = row.ai;
-    document.getElementById("dt").value = row.dt;
-    document.getElementById("kb").value = row.kb;
-    document.getElementById("ki").value = row.ki;
-    document.getElementById("es").value = row.es;
-    modal.hidden = false;
-  };
+  function saveData(rows) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(rows));
+    AI.train(rows, 100);
+  }
 
-  window.deleteRow = (id) => {
-    if(confirm("O'chirilsinmi?")) {
-      data = data.filter(r => r.id !== id);
-      saveData(data);
-      renderTable();
-    }
+  // ==========================================
+  // 3. INIT VA HODISALAR
+  // ==========================================
+
+  window.onload = () => {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    data = raw ? JSON.parse(raw) : generateDataset(20);
+    AI.train(data);
+    renderTable();
+    setTimeout(hideLoader, 2800); // Sahifa tayyor bo'lgach loader yopiladi
   };
 
   form.onsubmit = (e) => {
     e.preventDefault();
-    const vals = {
+    const scores = {
       ai: Number(document.getElementById("ai").value),
       dt: Number(document.getElementById("dt").value),
       kb: Number(document.getElementById("kb").value),
       ki: Number(document.getElementById("ki").value),
       es: Number(document.getElementById("es").value)
     };
-
-    // BASHORAT QILISH (AI ISHLAMOQDA)
-    const final_score = AI.predict(vals.ai, vals.dt, vals.kb, vals.ki, vals.es);
-
+    const final = AI.predict(scores.ai, scores.dt, scores.kb, scores.ki, scores.es);
     const payload = {
-      ...vals,
+      ...scores,
       lastName: document.getElementById("lastName").value,
       firstName: document.getElementById("firstName").value,
       patronymic: document.getElementById("patronymic").value,
-      final_score: final_score
+      final_score: final,
+      id: editingId || crypto.randomUUID()
     };
 
-    if (editingId) {
-      data = data.map(r => r.id === editingId ? { ...r, ...payload } : r);
-    } else {
-      payload.id = crypto.randomUUID();
-      data.unshift(payload);
-    }
+    if (editingId) data = data.map(r => r.id === editingId ? payload : r);
+    else data.unshift(payload);
 
     saveData(data);
     modal.hidden = true;
     renderTable();
   };
 
-  // Tugmalar
+  // CRUD va Navigatsiya
+  window.editRow = (id) => {
+    const r = data.find(x => x.id === id);
+    if (!r) return;
+    editingId = id;
+    ["lastName", "firstName", "patronymic", "ai", "dt", "kb", "ki", "es"].forEach(k => document.getElementById(k).value = r[k]);
+    modal.hidden = false;
+  };
+
+  window.deleteRow = (id) => { if(confirm("O'chirilsinmi?")) { data = data.filter(x => x.id !== id); saveData(data); renderTable(); }};
+
   document.getElementById("addBtn").onclick = () => { editingId = null; form.reset(); modal.hidden = false; };
   document.getElementById("closeModal").onclick = () => modal.hidden = true;
-  document.getElementById("seedBtn").onclick = () => { data = generateInitialData(100); saveData(data); renderTable(); };
+  document.getElementById("seedBtn").onclick = () => { showLoader(); setTimeout(() => { data = generateDataset(100); saveData(data); renderTable(); hideLoader(); }, 500); };
   document.getElementById("clearBtn").onclick = () => { data = []; saveData(data); renderTable(); };
-  
-  // Pagination
-  document.getElementById("prevBtn").onclick = () => { if(currentPage > 1) { currentPage--; renderTable(); } };
-  document.getElementById("nextBtn").onclick = () => { if(currentPage < Math.ceil(data.length/PAGE_SIZE)) { currentPage++; renderTable(); } };
-
-  // Theme Toggle
-  document.getElementById("themeToggle").onclick = () => {
-    const root = document.documentElement;
-    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-    localStorage.setItem("theme", root.dataset.theme);
-  };
-
-  // Init
-  window.onload = () => {
-    setTimeout(() => document.getElementById("page-loader").classList.add("loader-hidden"), 800);
-    renderTable();
-  };
+  document.getElementById("prevBtn").onclick = () => { if(currentPage > 1) { currentPage--; renderTable(); }};
+  document.getElementById("nextBtn").onclick = () => { if(currentPage < Math.ceil(data.length/PAGE_SIZE)) { currentPage++; renderTable(); }};
 
 })();
