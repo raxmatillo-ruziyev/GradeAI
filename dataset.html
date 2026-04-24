@@ -1,247 +1,251 @@
 <!doctype html>
 <html lang="uz">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GradeAI — Dataset</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        (function () {
-            try {
-                const saved = localStorage.getItem("theme");
-                const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-                const theme = (saved === "light" || saved === "dark") ? saved : (prefersLight ? "light" : "dark");
-                document.documentElement.dataset.theme = theme;
-            } catch (e) { }
-        })();
-    </script>
-
-    <link rel="stylesheet" href="/main.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GradeAI — Dataset</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        const theme = (saved === "light" || saved === "dark") ? saved : (prefersLight ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="./main.css" />
 </head>
+<body data-page="dataset">
+  <div id="page-loader" class="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-logo-text">Grade AI</div>
+      <div class="loader-logo-title">By Raxmatillo Ruziyev</div>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
 
-<body>
-    <div id="page-loader" class="loader-wrapper">
-        <div class="loader-content">
-            <div class="loader-spinner"></div>
-            <div class="loader-logo-text">Grade AI</div>
-            <div class="loader-logo-title">By Raxmatillo Ruziyev</div>
-            <div class="loader-bar"><span></span></div>
+  <a class="skip-link" href="#content">Kontentga o‘tish</a>
+
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="ai-logo-box">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="30" height="30" rx="2" stroke="var(--brand)" stroke-width="2" />
+            <path d="M12 20H28M20 12V28" stroke="var(--brand)" stroke-width="2" stroke-linecap="square" />
+            <circle cx="20" cy="20" r="4" fill="var(--brand)" />
+            <path d="M5 12H10M30 12H35M5 28H10M30 28H35" stroke="var(--brand)" stroke-width="2" />
+          </svg>
         </div>
+        <div class="brand-text">
+          <div class="brand-title">GradeAI</div>
+          <div class="brand-sub">Talabalar bahosini bashoratlash tizimi</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Asosiy navigatsiya">
+        <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink is-active" href="./dataset.html">Dataset</a>
+                <a class="navlink" href="./model.html">Model (AI)</a>
+                <a class="navlink" href="./analysis.html">Tahlil</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Rejimni almashtirish">
+          <span class="icon-sun" aria-hidden="true">☀</span>
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+        </button>
+        <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink is-active" href="./dataset.html">Dataset</a>
+                <a class="navlink" href="./model.html">Model (AI)</a>
+                <a class="navlink" href="./analysis.html">Tahlil</a>
     </div>
 
-    <a class="skip-link" href="#content">Kontentga o‘tish</a>
+    <main id="content" class="content">
+      <section class="hero hero--dataset">
+  <div class="hero-left">
+    <p class="kicker">Ma’lumotlar bazasi / Jadval</p>
+    <h1 class="hero-title">
+      Talabalar dataset’i
+      <span class="badge">CRUD + Pagination</span>
+    </h1>
+    <p class="hero-desc">
+      Bu sahifada talaba ma’lumotlarini qo‘shish, tahrirlash, o‘chirish, qidirish
+      va CSV ko‘rinishida yuklab olish mumkin.
+    </p>
 
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
+    <div class="hero-meta">
+      <div class="meta-chip">
+        <div class="meta-title">Records</div>
+        <div class="meta-value" id="statCount">0</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-title">Page size</div>
+        <div class="meta-value" id="statPageSize">10</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-title">Target</div>
+        <div class="meta-value">final_score</div>
+      </div>
+    </div>
+  </div>
 
-    <div class="wrap">
-        <header class="topbar">
-            <div class="brand">
-                <div class="ai-logo-box">
-                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="5" y="5" width="30" height="30" rx="2" stroke="var(--brand)" stroke-width="2" />
-                        <path d="M12 20H28M20 12V28" stroke="var(--brand)" stroke-width="2" stroke-linecap="square" />
-                        <circle cx="20" cy="20" r="4" fill="var(--brand)" />
-                        <path d="M5 12H10M30 12H35M5 28H10M30 28H35" stroke="var(--brand)" stroke-width="2" />
-                    </svg>
-                </div>
-                <div class="brand-text">
-                    <div class="brand-title">GradeAI</div>
-                    <div class="brand-sub">Dataset — jadval, CRUD, CSV</div>
-                </div>
-            </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-head">
+        <h2 class="h2">Boshqaruv</h2>
+        <span class="pill">Dataset Tools</span>
+      </div>
 
-            <nav class="nav" aria-label="Asosiy navigatsiya">
-                <a class="navlink" href="/index.html">Konsepsiya</a>
-                <a class="navlink is-active" href="/dataset.html">Dataset</a>
-                <a class="navlink" href="/model.html">Model (AI)</a>
-                <a class="navlink" href="/analysis.html">Tahlil</a>
-            </nav>
+      <div class="dataset-actions" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <button class="btn btn-primary" id="addBtn" type="button">+ Talaba qo‘shish</button>
+        <button class="btn" id="downloadBtn" type="button">CSV yuklab olish</button>
+        <button class="btn" id="seedBtn" type="button">Demo (100)</button>
+        <button class="btn btn-danger" id="clearBtn" type="button">Clear (0)</button>
+      </div>
 
-            <div class="topbar-actions">
-                <button class="icon-btn" id="themeToggle" type="button" aria-label="Rejimni almashtirish">
-                    <span class="icon-sun" aria-hidden="true">☀</span>
-                    <span class="icon-moon" aria-hidden="true">🌙</span>
-                </button>
-
-                <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </header>
-
-        <div class="mobile-nav" id="mobileNav" hidden>
-            <a class="navlink" href="/index.html">Konsepsiya</a>
-            <a class="navlink is-active" href="/dataset.html">Dataset</a>
-            <a class="navlink" href="/model.html">Model (AI)</a>
-            <a class="navlink" href="/analysis.html">Tahlil</a>
+      <div class="dataset-files">
+        <div class="hero-card-head">
+          <h3 class="h2">Qo‘shimcha fayllar</h3>
+          <span class="pill">Task Files</span>
         </div>
+        <div class="dataset-files-grid">
+          <a class="btn file-link" href="./GradeAI.docx" download>1-task.docx</a>
+          <a class="btn file-link" href="./GradeAI.ipynb" download>2-task.ipynb</a>
+          <a class="btn file-link" href="./task_3.ipynb" download>3-task.ipynb</a>
+          <a class="btn file-link" href="./Task_3.docx" download>3-task.docx</a>
+           <a class="btn file-link" href="./GradeAI.pdf" download>4-task.pptx</a>
+        </div>
+      </div>
 
-        <main id="content" class="content">
-            <section class="hero">
-                <div class="hero-left">
-                    <p class="kicker">Ma’lumotlar bazasi / Jadval</p>
-                    <h1 class="hero-title">
-                        Talabalar dataset’i
-                        <span class="badge">CRUD + Pagination</span>
-                    </h1>
-                    <p class="hero-desc">
-                        Bu sahifada talaba ma’lumotlarini qo‘shish, tahrirlash, o‘chirish va CSV ko‘rinishida yuklab
-                        olish mumkin.
-                        Dataset siz qo‘shgancha <b>cheklanmaydi</b>.
-                    </p>
+      <p class="note-row">Saqlash manbasi: <code>localStorage / gradeai_dataset_v2</code></p>
+    </div>
+  </div>
+</section>
 
-                    <div class="hero-meta">
-                        <div class="meta-chip">
-                            <div class="meta-title">Records</div>
-                            <div class="meta-value" id="statCount">0</div>
-                        </div>
-                        <div class="meta-chip">
-                            <div class="meta-title">Page size</div>
-                            <div class="meta-value" id="statPageSize">5</div>
-                        </div>
-                        <div class="meta-chip">
-                            <div class="meta-title">Target</div>
-                            <div class="meta-value">final_score</div>
-                        </div>
-                    </div>
-                </div>
+<section class="card">
+  <div class="card-head">
+    <h2 class="h2">Dataset jadvali</h2>
+    <span class="tag" id="tableTag">0 records</span>
+  </div>
 
-                <div class="hero-right">
-                    <div class="hero-card">
-                        <div class="hero-card-head">
-                            <h2 class="h2">Boshqaruv</h2>
-                            <span class="pill">Dataset Tools</span>
-                        </div>
-
-                        <div class="dataset-actions" style="display: flex; flex-direction: column; gap: 10px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <button class="btn" id="addBtn" type="button">+ Talaba qo‘shish</button>
-                                <button class="btn btn-ghost" id="downloadBtn" type="button">CSV yuklab olish</button>
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <a href="./GradeAI.ipynb" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 2_task.ipynb</a>
-                                <a href="./GradeAI.docx" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 1_task.docx</a>
-                            </div>
-                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <a href="./task_3.ipynb" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 3_task.ipynb</a>
-                                <a href="./Task_3.docx" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 3_task.docx</a>
-                            </div>
-                              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                <a href="./GradeAI.pdf" download class="mini-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-right: 0;">📘 4_task.pptx</a>
-                              
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 5px;">
-                                <button class="btn btn-ghost" id="seedBtn" type="button">Demo (100)</button>
-                                <button class="btn btn-ghost danger" id="clearBtn" type="button">Clear (0)</button>
-                            </div>
-                        </div>
-
-                        <p class="muted small" style="margin-top:10px;">
-                            Saqlash: <code>localStorage</code> (gradeai_dataset_v1)
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="card">
-                <div class="card-head">
-                    <h2 class="h2">Dataset jadvali</h2>
-                    <span class="tag" id="tableTag">0 records</span>
-                </div>
-
-                <div class="toolbar">
-                    <div class="search">
-                        <input id="searchInput" class="input" type="text" placeholder="Qidirish: F.I.Sh bo‘yicha..." />
-                    </div>
-
-                    <div class="toolbar-right">
-                        <label class="muted small" for="pageSizeSelect">Ko‘rsatish:</label>
-                        <select id="pageSizeSelect" class="select">
-                            <option value="5">5 / sahifa</option>
-                            <option value="10">10 / sahifa</option>
-                            <option value="20">20 / sahifa</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>F.I.Sh</th>
-                                <th>AI</th>
-                                <th>DT</th>
-                                <th>CS</th>
-                                <th>KI</th>
-                                <th>ES</th>
-                                <th>Final</th>
-                                <th>Amallar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody"></tbody>
-                    </table>
-                </div>
-
-                <div class="pagination">
-                    <button class="btn btn-ghost" id="prevBtn" type="button">← Oldingi</button>
-                    <div class="page-info" id="pageInfo">1 / 1</div>
-                    <button class="btn btn-ghost" id="nextBtn" type="button">Keyingi →</button>
-                </div>
-            </section>
-
-            <footer class="footer">
-                <div class="muted">© 2026 GradeAI — Sifatli ta'lim analitikasi</div>
-            </footer>
-        </main>
+  <div class="toolbar">
+    <div class="search">
+      <input id="searchInput" class="input" type="text" placeholder="Qidirish: F.I.Sh bo‘yicha..." />
     </div>
 
-    <div class="modal" id="modal" hidden>
-        <div class="modal-backdrop" data-close="1"></div>
-        <div class="modal-card_" role="dialog" aria-modal="true">
-            <div class="modal-head_">
-                <div>
-                    <div class="h2" id="modalTitle">Talaba qo‘shish</div><br>
-                    <div class="muted small">Ma'lumotlarni kiriting</div> <br>
-                </div>
-                <button class="icon-btn" id="closeModal" type="button">✕</button>
-            </div>
+    <div class="toolbar-right">
+      <label class="small muted" for="pageSizeSelect">Ko‘rsatish:</label>
+      <select id="pageSizeSelect" class="select">
+        <option value="5">5 / sahifa</option>
+        <option value="10" selected>10 / sahifa</option>
+        <option value="20">20 / sahifa</option>
+      </select>
+    </div>
+  </div>
 
-            <form id="form" class="form">
-                <div class="form-grid">
-                    <div class="field">
-                        <label class="label">Familiya</label>
-                        <input class="input" id="lastName" type="text" required placeholder="Masalan: Ruziyev" />
-                    </div>
-                    <div class="field">
-                        <label class="label">Ism</label>
-                        <input class="input" id="firstName" type="text" required placeholder="Masalan: Raxmatillo" />
-                    </div>
-                    <div class="field">
-                        <label class="label">Sharif</label>
-                        <input class="input" id="patronymic" type="text" placeholder="Masalan: Rustamali o‘g‘li" />
-                    </div>
-                    <div class="field"><label class="label">AI asoslari</label><input class="input" id="ai" type="number" min="0" max="100" required /></div>
-                    <div class="field"><label class="label">Differensial</label><input class="input" id="dt" type="number" min="0" max="100" required /></div>
-                    <div class="field"><label class="label">Kiberxavfsizlik</label><input class="input" id="kb" type="number" min="0" max="100" required /></div>
-                    <div class="field"><label class="label">Kompyuter inj.</label><input class="input" id="ki" type="number" min="0" max="100" required /></div>
-                    <div class="field"><label class="label">Ehtimol/Stat</label><input class="input" id="es" type="number" min="0" max="100" required /></div>
-                </div>
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>F.I.Sh</th>
+          <th>AI</th>
+          <th>DT</th>
+          <th>KB</th>
+          <th>KI</th>
+          <th>ES</th>
+          <th>Final</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody id="datasetTableBody"></tbody>
+    </table>
+  </div>
 
-                <div class="modal-actions_">
-                    <button class="btn btn-ghost" type="button" id="cancelBtn">Bekor</button>
-                    <button class="btn" type="submit" id="saveBtn">Saqlash</button>
-                </div>
-            </form>
-        </div>
+  <div class="pagination">
+    <button class="btn" id="prevBtn" type="button">← Oldingi</button>
+    <div class="page-info" id="pageInfo">1 / 1</div>
+    <button class="btn" id="nextBtn" type="button">Keyingi →</button>
+  </div>
+</section>
+
+<div class="modal" id="studentModal" hidden>
+  <div class="modal-backdrop" data-close-modal="1"></div>
+  <div class="modal-card hero-card">
+    <div class="modal-head">
+      <div>
+        <h3 class="modal-title" id="studentModalTitle">Talaba qo‘shish</h3>
+        <p class="modal-subtitle" id="studentModalSub">Yangi talaba ma’lumotini kiriting</p>
+      </div>
+      <button class="icon-btn modal-close" id="studentModalClose" type="button" aria-label="Yopish">✕</button>
     </div>
 
-    <script src="/dataset.js"></script>
+    <form id="studentForm" class="form">
+      <div class="form-grid">
+        <div class="field">
+          <label class="label" for="lastName">Familiya</label>
+          <input class="input" id="lastName" type="text" required placeholder="Masalan: Ruziyev" />
+        </div>
+        <div class="field">
+          <label class="label" for="firstName">Ism</label>
+          <input class="input" id="firstName" type="text" required placeholder="Masalan: Raxmatillo" />
+        </div>
+        <div class="field">
+          <label class="label" for="patronymic">Sharif</label>
+          <input class="input" id="patronymic" type="text" placeholder="Masalan: Rustamali o‘g‘li" />
+        </div>
+        <div class="field">
+          <label class="label" for="ai">AI asoslari</label>
+          <input class="input" id="ai" type="number" min="0" max="100" required />
+        </div>
+        <div class="field">
+          <label class="label" for="dt">Differensial</label>
+          <input class="input" id="dt" type="number" min="0" max="100" required />
+        </div>
+        <div class="field">
+          <label class="label" for="kb">Kiberxavfsizlik</label>
+          <input class="input" id="kb" type="number" min="0" max="100" required />
+        </div>
+        <div class="field">
+          <label class="label" for="ki">Kompyuter inj.</label>
+          <input class="input" id="ki" type="number" min="0" max="100" required />
+        </div>
+        <div class="field">
+          <label class="label" for="es">Ehtimollar / statistika</label>
+          <input class="input" id="es" type="number" min="0" max="100" required />
+        </div>
+      </div>
+
+      <div class="modal-actions" style="justify-content: flex-end; margin-top: 8px;">
+        <button class="btn" id="studentCancelBtn" type="button">Bekor</button>
+        <button class="btn btn-primary" id="saveStudentBtn" type="submit">Saqlash</button>
+      </div>
+    </form>
+  </div>
+</div>
+      <footer class="footer">
+        <div class="muted">© 2026 GradeAI — Sifatli ta’lim uchun zamonaviy analitika</div>
+      </footer>
+    </main>
+  </div>
+
+  <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
+  <script src="./main.js"></script>
 </body>
 </html>

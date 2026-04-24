@@ -1,41 +1,61 @@
 <!doctype html>
 <html lang="uz">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GradeAI — Tahlil</title>
-  <link rel="stylesheet" href="/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        const theme = (saved === "light" || saved === "dark") ? saved : (prefersLight ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="./main.css" />
 </head>
+<body data-page="analysis">
+  <div id="page-loader" class="loader-wrapper">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <div class="loader-logo-text">Grade AI</div>
+      <div class="loader-logo-title">By Raxmatillo Ruziyev</div>
+      <div class="loader-bar"><span></span></div>
+    </div>
+  </div>
 
-<body>
   <a class="skip-link" href="#content">Kontentga o‘tish</a>
 
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
   <div class="wrap">
-
-    <!-- TOPBAR -->
     <header class="topbar">
       <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <span class="logo-dot"></span>
-          <span class="logo-dot"></span>
-          <span class="logo-dot"></span>
+        <div class="ai-logo-box">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="30" height="30" rx="2" stroke="var(--brand)" stroke-width="2" />
+            <path d="M12 20H28M20 12V28" stroke="var(--brand)" stroke-width="2" stroke-linecap="square" />
+            <circle cx="20" cy="20" r="4" fill="var(--brand)" />
+            <path d="M5 12H10M30 12H35M5 28H10M30 28H35" stroke="var(--brand)" stroke-width="2" />
+          </svg>
         </div>
-
         <div class="brand-text">
           <div class="brand-title">GradeAI</div>
-          <div class="brand-sub">Tahlil — statistika, correlation, grafiklar</div>
+          <div class="brand-sub">Talabalar bahosini bashoratlash tizimi</div>
         </div>
       </div>
 
       <nav class="nav" aria-label="Asosiy navigatsiya">
-        <a class="navlink" href="/index.html">Konsepsiya</a>
-        <a class="navlink" href="/dataset.html">Dataset</a>
-        <a class="navlink" href="/model.html">Model (AI)</a>
-        <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+        <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink" href="./dataset.html">Dataset</a>
+                <a class="navlink" href="./model.html">Model (AI)</a>
+                <a class="navlink is-active" href="./analysis.html">Tahlil</a>
       </nav>
 
       <div class="topbar-actions">
@@ -43,236 +63,183 @@
           <span class="icon-sun" aria-hidden="true">☀</span>
           <span class="icon-moon" aria-hidden="true">🌙</span>
         </button>
-
-        <button class="burger" id="burger" type="button" aria-label="Menyuni ochish">
+        <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
     </header>
 
-    <!-- Mobile nav -->
     <div class="mobile-nav" id="mobileNav" hidden>
-      <a class="navlink" href="/index.html">Konsepsiya</a>
-      <a class="navlink" href="/dataset.html">Dataset</a>
-      <a class="navlink" href="/model.html">Model (AI)</a>
-      <a class="navlink is-active" href="/analysis.html">Tahlil</a>
+      <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink" href="./dataset.html">Dataset</a>
+                <a class="navlink" href="./model.html">Model (AI)</a>
+                <a class="navlink is-active" href="./analysis.html">Tahlil</a>
     </div>
 
     <main id="content" class="content">
-      <div class="card" style="margin-top:10px;">
-        <div class="card-head">
-          <h3 class="h2" style="font-size:16px;">Data Cleaning</h3>
-          <span class="tag">Quality</span>
-        </div>
+      <section class="card">
+  <div class="card-head">
+    <h2 class="h2">Data cleaning</h2>
+    <span class="tag">Quality</span>
+  </div>
+  <div class="summary-grid" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+    <div class="meta-chip">
+      <div class="meta-title">Oldin</div>
+      <div class="meta-value" id="beforeCount">0</div>
+    </div>
+    <div class="meta-chip">
+      <div class="meta-title">Keyin</div>
+      <div class="meta-value" id="afterCount">0</div>
+    </div>
+    <div class="meta-chip">
+      <div class="meta-title">Tozalangan</div>
+      <div class="meta-value" id="removedCount">0</div>
+    </div>
+  </div>
+  <p class="note-row" id="cleanNote">Dataset holati tekshiriladi.</p>
+</section>
 
-        <div class="row" style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
-          <div class="meta-chip">
-            <div class="meta-title">Oldin</div>
-            <div class="meta-value" id="beforeCount">-</div>
-          </div>
+<section class="card">
+  <div class="card-head">
+    <h2 class="h2">Tahlil paneli</h2>
+    <span class="tag">Analytics</span>
+  </div>
+  <p class="muted">
+    Bu sahifada dataset bo‘yicha deskriptiv statistika, korrelyatsiya va grafik tahlillar ko‘rsatiladi.
+  </p>
 
-          <div class="meta-chip">
-            <div class="meta-title">Keyin</div>
-            <div class="meta-value" id="afterCount">-</div>
-          </div>
+  <div class="hero-meta" style="margin-top: 12px;">
+    <div class="meta-chip">
+      <div class="meta-title">Dataset manbasi</div>
+      <div class="meta-value" id="dsSource">-</div>
+    </div>
+    <div class="meta-chip">
+      <div class="meta-title">Qatorlar soni</div>
+      <div class="meta-value" id="dsCount">-</div>
+    </div>
+    <div class="meta-chip">
+      <div class="meta-title">Target</div>
+      <div class="meta-value">final_score</div>
+    </div>
+  </div>
+</section>
 
-          <div class="meta-chip">
-            <div class="meta-title">Tozalangan</div>
-            <div class="meta-value" id="removedCount">-</div>
-          </div>
-        </div>
+<section class="card">
+  <div class="card-head">
+    <h2 class="h2">Model natijalari</h2>
+    <span class="tag">Metrics</span>
+  </div>
+  <div class="link-row">
+    <span class="badge" id="analysisMse">MSE: -</span>
+    <span class="badge" id="analysisMae">MAE: -</span>
+    <span class="badge" id="analysisR2">R²: -</span>
+    <span class="pill hidden" id="analysisTrain">Train: -</span>
+  </div>
+</section>
 
-        <p class="muted small" id="cleanNote" style="margin-top:10px;"></p>
+<section class="grid">
+  <article class="card">
+    <div class="card-head">
+      <h2 class="h2">Deskriptiv statistika</h2>
+      <span class="tag">Stats</span>
+    </div>
+    <div class="table-wrap">
+      <table class="table" style="min-width: 620px;">
+        <thead>
+          <tr>
+            <th>Ustun</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Mean</th>
+          </tr>
+        </thead>
+        <tbody id="statsBody"></tbody>
+      </table>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-head">
+      <h2 class="h2">Correlation</h2>
+      <span class="tag">Corr</span>
+    </div>
+    <div class="table-wrap">
+      <table class="table" style="min-width: 520px;">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Corr</th>
+          </tr>
+        </thead>
+        <tbody id="corrBody"></tbody>
+      </table>
+    </div>
+  </article>
+</section>
+
+<section class="card">
+  <div class="card-head">
+    <h2 class="h2">Vizual tahlil</h2>
+    <span class="tag">Charts</span>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <label class="label" for="analysisFeature" style="display:block; margin-bottom: 6px;">Scatter uchun fan</label>
+      <select class="select" id="analysisFeature">
+        <option value="ai">Sun’iy intellekt asoslari</option>
+        <option value="dt">Differensial tenglama</option>
+        <option value="kb">Kiberxavfsizlik asoslari</option>
+        <option value="ki">Kompyuter injeneringga kirish</option>
+        <option value="es">Ehtimollar va statistika</option>
+      </select>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn" id="redrawBtn" type="button">Yangilash</button>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <article class="chart-card">
+      <div class="card-head">
+        <h3 class="h2">Histogram</h3>
+        <span class="tag">Distribution</span>
       </div>
-      <!-- Header / Intro -->
-      <section class="card">
-        <div class="card-head">
-          <h2 class="h2">Tahlil paneli</h2>
-          <span class="tag">Analytics</span>
-        </div>
+      <div class="canvas-box">
+        <canvas id="histCanvas"></canvas>
+      </div>
+    </article>
 
-        <p class="muted" style="margin-top:6px;">
-          Bu sahifa dataset bo‘yicha <b>deskriptiv statistika</b>, <b>bog‘liqlik</b> (correlation) va
-          <b>vizual tahlil</b>ni ko‘rsatadi. Ma’lumotlar <b>localStorage</b>dan olinadi.
-        </p>
+    <article class="chart-card">
+      <div class="card-head">
+        <h3 class="h2">Scatter + trendline</h3>
+        <span class="tag">Relation</span>
+      </div>
+      <div class="canvas-box">
+        <canvas id="scatterCanvas"></canvas>
+      </div>
+    </article>
+  </div>
 
-        <div class="hero-meta" style="margin-top:12px;">
-          <div class="meta-chip">
-            <div class="meta-title">Dataset manbasi</div>
-            <div class="meta-value" id="dsSource">-</div>
-          </div>
-          <div class="meta-chip">
-            <div class="meta-title">Qatorlar soni</div>
-            <div class="meta-value" id="dsCount">-</div>
-          </div>
-          <div class="meta-chip">
-            <div class="meta-title">Target</div>
-            <div class="meta-value">final_score (0–100)</div>
-          </div>
-        </div>
-      </section>
+  <article class="chart-card" style="margin-top: 14px;">
+    <div class="card-head">
+      <h3 class="h2">Correlation bar chart</h3>
+      <span class="tag">Overview</span>
+    </div>
+    <div class="canvas-box">
+      <canvas id="corrCanvas"></canvas>
+    </div>
+  </article>
 
-      <!-- Model metrics -->
-      <section class="card">
-        <div class="card-head">
-          <h2 class="h2">Model natijalari</h2>
-          <span class="tag">Metrics</span>
-        </div>
-
-        <div class="row" style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
-          <span class="badge" id="mseBadge">MSE: -</span>
-          <span class="badge" id="maeBadge">MAE: -</span>
-          <span class="badge" id="r2Badge">R²: -</span>
-          <span class="pill" id="trainedAtPill" style="display:none;">-</span>
-        </div>
-
-        <p class="muted small" id="modelNote" style="margin-top:10px;">
-          Hali model train qilinmagan. model.html sahifada “Train Model” bosilsa natijalar bu yerda ham ko‘rinadi.
-        </p>
-      </section>
-
-      <!-- Stats + Corr -->
-      <section class="grid">
-
-        <article class="card">
-          <div class="card-head">
-            <h2 class="h2">Deskriptiv statistika</h2>
-            <span class="tag">Stats</span>
-          </div>
-
-          <p class="muted small">Har bir ustun: min / max / mean</p>
-
-          <div class="table-wrap" style="margin-top:10px;">
-            <table class="table" style="min-width:620px;">
-              <thead>
-                <tr>
-                  <th>Ustun</th>
-                  <th>Min</th>
-                  <th>Max</th>
-                  <th>Mean</th>
-                </tr>
-              </thead>
-              <tbody id="statsBody"></tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-head">
-            <h2 class="h2">Correlation (final_score bilan)</h2>
-            <span class="tag">Corr</span>
-          </div>
-
-          <p class="muted small">
-            |corr| qanchalik 1 ga yaqin bo‘lsa, bog‘liqlik shunchalik kuchli.
-          </p>
-
-          <div class="table-wrap" style="margin-top:10px;">
-            <table class="table" style="min-width:520px;">
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Corr</th>
-                </tr>
-              </thead>
-              <tbody id="corrBody"></tbody>
-            </table>
-          </div>
-        </article>
-
-      </section>
-
-      <!-- Charts -->
-      <section class="card">
-        <div class="card-head">
-          <h2 class="h2">Vizual tahlil</h2>
-          <span class="tag">Charts</span>
-        </div>
-
-        <div class="toolbar" style="margin-top:10px;">
-          <div class="search">
-            <label class="label" for="featureSelect" style="margin-bottom:6px; display:block;">Scatter uchun fan</label>
-            <select class="select" id="featureSelect">
-              <option value="ai">Sun’iy intellekt asoslari</option>
-              <option value="dt">Differensial tenglama</option>
-              <option value="kb">Kiberxavfsizlik asoslari</option>
-              <option value="ki">Kompyuter injeneringga kirish</option>
-              <option value="es">Ehtimollar va statistika</option>
-            </select>
-          </div>
-
-          <div class="toolbar-right">
-            <button class="btn btn-ghost" id="redrawBtn" type="button">Yangilash</button>
-          </div>
-        </div>
-
-        <div class="grid" style="grid-template-columns:repeat(2, minmax(0, 1fr));">
-          <article class="card" style="margin:0;">
-            <div class="card-head">
-              <h3 class="h2" style="font-size:16px;">Histogram (final_score)</h3>
-              <span class="tag">Distribution</span>
-            </div>
-            <canvas id="histCanvas" style="width:100%; height:280px; border-radius:14px;"></canvas>
-          </article>
-
-          <article class="card" style="margin:0;">
-            <div class="card-head">
-              <h3 class="h2" style="font-size:16px;">Scatter + trendline</h3>
-              <span class="tag">Relation</span>
-            </div>
-            <canvas id="scatterCanvas" style="width:100%; height:280px; border-radius:14px;"></canvas>
-          </article>
-        </div>
-
-        <article class="card" style="margin-top:14px;">
-          <div class="card-head">
-            <h3 class="h2" style="font-size:16px;">Correlation bar chart (feature → final_score)</h3>
-            <span class="tag">Overview</span>
-          </div>
-          <canvas id="corrCanvas" style="width:100%; height:300px; border-radius:14px;"></canvas>
-        </article>
-
-        <p class="muted small" id="dataNote" style="margin-top:10px;"></p>
-      </section>
-
+  <p class="note-row" id="dataNote">Tahlil tayyorlanmoqda...</p>
+</section>
       <footer class="footer">
-        <div class="muted">© 2026 GradeAI — Tahlil sahifasi</div>
+        <div class="muted">© 2026 GradeAI — Sifatli ta’lim uchun zamonaviy analitika</div>
       </footer>
-
     </main>
   </div>
 
-  <script>
-    // Theme + Mobile nav (same behavior across pages)
-    (function () {
-      const root = document.documentElement;
-      const saved = localStorage.getItem("theme");
-      if (saved === "light" || saved === "dark") root.dataset.theme = saved;
-
-      const btn = document.getElementById("themeToggle");
-      btn?.addEventListener("click", () => {
-        const current = root.dataset.theme || "dark";
-        const next = current === "dark" ? "light" : "dark";
-        root.dataset.theme = next;
-        localStorage.setItem("theme", next);
-        window.dispatchEvent(new Event("gradeai-theme-change"));
-      });
-
-      const burger = document.getElementById("burger");
-      const mobileNav = document.getElementById("mobileNav");
-      burger?.addEventListener("click", () => {
-        const isHidden = mobileNav.hasAttribute("hidden");
-        if (isHidden) mobileNav.removeAttribute("hidden");
-        else mobileNav.setAttribute("hidden", "");
-      });
-      mobileNav?.addEventListener("click", (e) => {
-        const a = e.target.closest("a");
-        if (a) mobileNav.setAttribute("hidden", "");
-      });
-    })();
-  </script>
-
-  <script src="/analysis.js"></script>
+  <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
+  <script src="./main.js"></script>
 </body>
-
 </html>

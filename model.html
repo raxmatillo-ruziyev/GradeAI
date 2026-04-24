@@ -1,59 +1,25 @@
 <!doctype html>
 <html lang="uz">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GradeAI — Model (Random Forest)</title>
-  <link rel="stylesheet" href="/main.css" />
-  <style>
-    /* Model Status va Progress stollari */
-    .progress-container {
-      margin: 15px 0;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      padding: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .progress-track {
-      width: 100%;
-      height: 8px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      background: linear-gradient(90deg, #3b82f6, #10b981);
-      transition: width 0.2s ease;
-    }
-
-    .pill.busy {
-      background: #f59e0b;
-      color: #000;
-    }
-
-    .pill.ok {
-      background: #10b981;
-      color: #fff;
-    }
-
-    .pill.warn {
-      background: #ef4444;
-      color: #fff;
-    }
-
-    .stat-big {
-      transition: all 0.3s ease;
-    }
-  </style>
+  <title>GradeAI — Model</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        const saved = localStorage.getItem("theme");
+        const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        const theme = (saved === "light" || saved === "dark") ? saved : (prefersLight ? "light" : "dark");
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="./main.css" />
 </head>
-
-<body>
+<body data-page="model">
   <div id="page-loader" class="loader-wrapper">
     <div class="loader-content">
       <div class="loader-spinner"></div>
@@ -62,6 +28,9 @@
       <div class="loader-bar"><span></span></div>
     </div>
   </div>
+
+  <a class="skip-link" href="#content">Kontentga o‘tish</a>
+
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
 
@@ -78,141 +47,175 @@
         </div>
         <div class="brand-text">
           <div class="brand-title">GradeAI</div>
-          <div class="brand-sub">Model — AI Engine</div>
+          <div class="brand-sub">Talabalar bahosini bashoratlash tizimi</div>
         </div>
       </div>
-      <nav class="nav">
-        <a class="navlink" href="/index.html">Konsepsiya</a>
-        <a class="navlink" href="/dataset.html">Dataset</a>
-        <a class="navlink is-active" href="/model.html">Model (AI)</a>
-        <a class="navlink" href="/analysis.html">Tahlil</a>
+
+      <nav class="nav" aria-label="Asosiy navigatsiya">
+        <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink" href="./dataset.html">Dataset</a>
+                <a class="navlink is-active" href="./model.html">Model (AI)</a>
+                <a class="navlink" href="./analysis.html">Tahlil</a>
       </nav>
+
       <div class="topbar-actions">
-        <button class="icon-btn" id="themeToggle">🌙</button>
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Rejimni almashtirish">
+          <span class="icon-sun" aria-hidden="true">☀</span>
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+        </button>
+        <button class="burger" id="burger" type="button" aria-label="Menyuni ochish" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </header>
 
-    <main class="content">
+    <div class="mobile-nav" id="mobileNav" hidden>
+      <a class="navlink" href="./index.html">Konsepsiya</a>
+                <a class="navlink" href="./dataset.html">Dataset</a>
+                <a class="navlink is-active" href="./model.html">Model (AI)</a>
+                <a class="navlink" href="./analysis.html">Tahlil</a>
+    </div>
+
+    <main id="content" class="content">
       <section class="hero">
-        <div class="hero-left">
-          <p class="kicker">AI / Regression Model</p>
-          <h1 class="hero-title">Random Forest <span class="badge">No library</span></h1>
-          <p class="hero-desc">
-            Ushbu model 5 ta fan natijalarini tahlil qilib, talabaning <b>yakuniy (Final)</b> ko‘rsatkichini bashorat
-            qiladi.
-          </p>
-          <div class="hero-meta">
-            <div class="meta-chip">
-              <div class="meta-title">Xususiyatlar</div>
-              <div class="meta-value">5 ta fan</div>
-            </div>
-            <div class="meta-chip">
-              <div class="meta-title">Dataset</div>
-              <div class="meta-value" id="dsMeta">0 qator</div>
-            </div>
-          </div>
+  <div class="hero-left">
+    <p class="kicker">AI / Regression model</p>
+    <h1 class="hero-title">
+      GradeAI modeli
+      <span class="badge">Train + Predict</span>
+    </h1>
+    <p class="hero-desc">
+      Bu bo‘limda dataset asosida model o‘qitiladi, metrikalar saqlanadi va
+      yangi qiymatlar bo‘yicha yakuniy baho bashorat qilinadi.
+    </p>
+
+    <div class="hero-meta">
+      <div class="meta-chip">
+        <div class="meta-title">Xususiyatlar</div>
+        <div class="meta-value">5 ta fan</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-title">Dataset</div>
+        <div class="meta-value" id="dsMeta">0 qator</div>
+      </div>
+      <div class="meta-chip">
+        <div class="meta-title">Storage</div>
+        <div class="meta-value">localStorage</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-head">
+        <h2 class="h2">Model status</h2>
+        <span class="pill" id="statusPill">Tayyor</span>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Tizim holati</div>
+        <p id="trainStatus" class="muted">Dataset yuklanmoqda...</p>
+      </div>
+
+      <div class="progress-container" id="loaderContainer" hidden>
+        <div class="search-box" style="justify-content: space-between;">
+          <span class="small muted">Model o‘qitilmoqda...</span>
+          <strong id="progressPercent">0%</strong>
         </div>
-
-        <div class="hero-right">
-          <div class="hero-card">
-            <div class="hero-card-head">
-              <h2 class="h2">Model Status</h2>
-              <span class="pill" id="statusPill">Tayyor</span>
-            </div>
-
-            <div id="loaderContainer" hidden class="progress-container">
-              <div class="label small" style="display: flex; justify-content: space-between;">
-                <span>Model o'qitilmoqda...</span>
-                <b id="progressPercent">0%</b>
-              </div>
-              <div class="progress-track">
-                <div id="progressBar" class="progress-fill"></div>
-              </div>
-            </div>
-
-            <div class="callout">
-              <div class="callout-title">Tizim holati</div>
-              <p class="muted" id="trainStatus" style="margin:0;">Dataset yuklanishi kutilmoqda...</p>
-            </div>
-
-            <div class="link-row" style="margin-top:12px;">
-              <button class="btn btn-ghost" id="trainBtn">🚀 Train Model</button>
-              <button class="btn btn-ghost" id="useDemoBtn">Demo Data</button>
-            </div>
-          </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBar"></div>
         </div>
-      </section>
+      </div>
 
-      <section class="grid">
-        <article class="card">
-          <div class="card-head">
-            <h2 class="h2">Model Metrikalari</h2><span class="tag">Metrics</span>
-          </div>
-          <div class="stat">
-            <div class="stat-item">
-              <div class="stat-top">MSE</div>
-              <div class="stat-big" id="mseBadge">-</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-top">MAE</div>
-              <div class="stat-big" id="maeBadge">-</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-top">R² Score</div>
-              <div class="stat-big" id="r2Badge">-</div>
-            </div>
-          </div>
-          <div style="margin-top:15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top:10px;">
-            <p class="muted small" id="splitInfo">Ma'lumotlar: -</p>
-            <p class="muted small" id="trainedAt">Oxirgi o'qitish: -</p>
-          </div>
-        </article>
+      <div class="quick-actions" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px;">
+        <button class="btn btn-primary" id="trainBtn" type="button">🚀 Train model</button>
+        <button class="btn" id="useDemoBtn" type="button">Demo data</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <article class="card">
-          <div class="card-head">
-            <h2 class="h2">Bashoratlash (Predict)</h2><span class="tag">AI Inference</span>
-          </div>
-          <div class="search-box" style="display: flex; gap: 10px; margin-bottom: 15px;">
-            <input class="input" style="flex: 1;" id="studentSearch" placeholder="Talaba ismini kiriting..." />
-            <button class="btn" id="findStudentBtn">Topish</button>
-          </div>
-          <div class="form">
-            <div class="form-grid">
-              <div class="field">
-                <div class="label">AI asoslari</div><input class="input" id="inAI" type="number" value="80">
-              </div>
-              <div class="field">
-                <div class="label">Diff. tenglama</div><input class="input" id="inDT" type="number" value="75">
-              </div>
-              <div class="field">
-                <div class="label">Kiberxavfsizlik</div><input class="input" id="inKB" type="number" value="70">
-              </div>
-              <div class="field">
-                <div class="label">Comp. Engineering</div><input class="input" id="inKI" type="number" value="85">
-              </div>
-              <div class="field">
-                <div class="label">Ehtimollar</div><input class="input" id="inES" type="number" value="65">
-              </div>
-              <div class="field">
-                <div class="label">Natija (Final)</div>
-                <div class="stat-item" style="height:44px; display:flex; align-items:center;">
-                  <div class="stat-big" id="predBadge" style="margin:0; color: var(--brand);">0.0</div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-actions" style="justify-content:flex-start; margin-top: 15px;">
-              <button class="btn" id="predictBtn">Bashorat qilish</button>
-            </div>
-          </div>
-        </article>
-      </section>
+<section class="grid">
+  <article class="card">
+    <div class="card-head">
+      <h2 class="h2">Model metrikalari</h2>
+      <span class="tag">Metrics</span>
+    </div>
 
+    <div class="stat">
+      <div class="stat-item">
+        <div class="stat-top">MSE</div>
+        <div class="stat-big" id="mseValue">-</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-top">MAE</div>
+        <div class="stat-big" id="maeValue">-</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-top">R²</div>
+        <div class="stat-big" id="r2Value">-</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">So‘nggi train ma’lumoti</div>
+      <p class="note-row">Oxirgi o‘qitish: <strong id="trainedAtText">-</strong></p>
+      <p class="note-row" id="splitInfo">Ma'lumotlar: -</p>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-head">
+      <h2 class="h2">Bashoratlash</h2>
+      <span class="tag">Predict</span>
+    </div>
+
+    <div class="search-inline">
+      <input class="input" id="studentSearch" type="text" placeholder="Talaba ismini kiriting..." />
+      <button class="btn" id="findStudentBtn" type="button">Topish</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label class="label" for="inAI">AI asoslari</label>
+        <input class="input" id="inAI" type="number" min="0" max="100" value="80" />
+      </div>
+      <div class="field">
+        <label class="label" for="inDT">Differensial</label>
+        <input class="input" id="inDT" type="number" min="0" max="100" value="75" />
+      </div>
+      <div class="field">
+        <label class="label" for="inKB">Kiberxavfsizlik</label>
+        <input class="input" id="inKB" type="number" min="0" max="100" value="70" />
+      </div>
+      <div class="field">
+        <label class="label" for="inKI">Kompyuter inj.</label>
+        <input class="input" id="inKI" type="number" min="0" max="100" value="85" />
+      </div>
+      <div class="field">
+        <label class="label" for="inES">Ehtimollar</label>
+        <input class="input" id="inES" type="number" min="0" max="100" value="65" />
+      </div>
+      <div class="field">
+        <label class="label">Natija</label>
+        <div class="stat-item">
+          <div class="stat-big" id="predValue">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="justify-content: flex-start; margin-top: 12px;">
+      <button class="btn btn-primary" id="predictBtn" type="button">Bashorat qilish</button>
+    </div>
+  </article>
+</section>
       <footer class="footer">
-        <div class="muted">© 2026 GradeAI Engine</div>
+        <div class="muted">© 2026 GradeAI — Sifatli ta’lim uchun zamonaviy analitika</div>
       </footer>
     </main>
   </div>
-  <script src="/rf.js"></script>
-</body>
 
+  <div class="theme-fade" id="themeFade" aria-hidden="true"></div>
+  <script src="./main.js"></script>
+</body>
 </html>
